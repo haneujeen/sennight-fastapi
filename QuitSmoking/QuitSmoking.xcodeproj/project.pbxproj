@@ -12,6 +12,7 @@
 		4EF93E7F2C1BEAE30088DED9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4EF93E7E2C1BEAE30088DED9 /* Assets.xcassets */; };
 		4EF93E822C1BEAE30088DED9 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4EF93E812C1BEAE30088DED9 /* Preview Assets.xcassets */; };
 		4EF93E892C1C166B0088DED9 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF93E882C1C166B0088DED9 /* HomeView.swift */; };
+		4EF93E8C2C1D79810088DED9 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF93E8B2C1D79810088DED9 /* Theme.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -21,6 +22,7 @@
 		4EF93E7E2C1BEAE30088DED9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4EF93E812C1BEAE30088DED9 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		4EF93E882C1C166B0088DED9 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		4EF93E8B2C1D79810088DED9 /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -53,6 +55,7 @@
 		4EF93E792C1BEAE20088DED9 /* QuitSmoking */ = {
 			isa = PBXGroup;
 			children = (
+				4EF93E8A2C1D796D0088DED9 /* Models */,
 				4EF93E7A2C1BEAE20088DED9 /* QuitSmokingApp.swift */,
 				4EF93E7C2C1BEAE20088DED9 /* ContentView.swift */,
 				4EF93E882C1C166B0088DED9 /* HomeView.swift */,
@@ -68,6 +71,14 @@
 				4EF93E812C1BEAE30088DED9 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		4EF93E8A2C1D796D0088DED9 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				4EF93E8B2C1D79810088DED9 /* Theme.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -141,6 +152,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4EF93E892C1C166B0088DED9 /* HomeView.swift in Sources */,
+				4EF93E8C2C1D79810088DED9 /* Theme.swift in Sources */,
 				4EF93E7D2C1BEAE20088DED9 /* ContentView.swift in Sources */,
 				4EF93E7B2C1BEAE20088DED9 /* QuitSmokingApp.swift in Sources */,
 			);
