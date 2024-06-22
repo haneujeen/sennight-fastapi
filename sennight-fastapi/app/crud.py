@@ -16,7 +16,14 @@ def verify_password(plain_password: str, hashed_password: str) -> bool:
 
 def create_user(db: Session, user: schemas.UserCreate):
     hashed_password = hash_password(user.password)
-    db_user = models.User(email=user.email, name=user.name, hashed_password=hashed_password)
+    db_user = models.User(
+        email=user.email,
+        name=user.name,
+        hashed_password=hashed_password,
+        start_date=user.start_date,
+        daily_cigarettes=user.daily_cigarettes,
+        cigarette_price=user.cigarette_price,
+    )
     db.add(db_user)
     db.commit()
     db.refresh(db_user)
