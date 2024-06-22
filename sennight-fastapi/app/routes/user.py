@@ -4,7 +4,7 @@ from .. import schemas, crud, database, models
 
 router = APIRouter()
 
-@router.post("/user/register")
+@router.post("/users/register")
 async def register_user(user: schemas.UserCreate, db: Session = Depends(database.get_db)):
     db_user = db.query(models.User).filter(models.User.email == user.email).first()
     if db_user:
@@ -20,7 +20,7 @@ async def register_user(user: schemas.UserCreate, db: Session = Depends(database
         }
     }
 
-@router.post("/user")
+@router.post("/users")
 async def login_user(user: schemas.UserLogin, db: Session = Depends(database.get_db)):
     authenticated_user = crud.authenticate_user(db, user.email, user.password)
     if not authenticated_user:
