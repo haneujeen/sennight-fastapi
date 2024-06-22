@@ -13,7 +13,7 @@ async def register_user(user: schemas.UserCreate, db: Session = Depends(database
     new_user = crud.create_user(db, user)
     return {
         "status": True,
-        "message": "User registered successfully",
+        "detail": "User registered successfully",
         "data": {
             "email": new_user.email,
             "name": new_user.name
@@ -28,7 +28,7 @@ async def login_user(user: schemas.UserLogin, db: Session = Depends(database.get
 
     return {
         "status": True,
-        "message": "Login successful",
+        "detail": "Login successful",
         "data": {
             "email": authenticated_user.email,
             "name": authenticated_user.name
