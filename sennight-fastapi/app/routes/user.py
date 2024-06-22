@@ -16,7 +16,7 @@ async def register_user(user: schemas.UserCreate, db: Session = Depends(database
         "detail": "User registered successfully",
         "data": {
             "email": new_user.email,
-            "name": new_user.name
+            "created_at": new_user.created_at
         }
     }
 
@@ -31,6 +31,9 @@ async def login_user(user: schemas.UserLogin, db: Session = Depends(database.get
         "detail": "Login successful",
         "data": {
             "email": authenticated_user.email,
-            "name": authenticated_user.name
+            "name": authenticated_user.name,
+            "start_date": authenticated_user.start_date,
+            "daily_cigarettes": authenticated_user.daily_cigarettes,
+            "cigarette_price": authenticated_user.cigarette_price
         }
     }
