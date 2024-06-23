@@ -62,3 +62,154 @@ def delete_user(db: Session, user_id: int):
     db.commit()
     return db_user
 
+
+# PrimaryGoal CRUD operations
+
+def create_primary_goal(db: Session, primary_goal: schemas.PrimaryGoalCreate, user_id: int):
+    db_primary_goal = models.PrimaryGoal(
+        user_id=user_id,
+        category=primary_goal.category,
+        description=primary_goal.description
+    )
+    db.add(db_primary_goal)
+    db.commit()
+    db.refresh(db_primary_goal)
+    return db_primary_goal
+
+
+def update_primary_goal(db: Session, user_id: int, primary_goal_update: schemas.PrimaryGoalUpdate):
+    db_primary_goal = db.query(models.PrimaryGoal).filter(models.PrimaryGoal.user_id == user_id).first()
+    if not db_primary_goal:
+        raise NoResultFound("Primary goal not found")
+
+    update_data = primary_goal_update.dict(exclude_unset=True)
+    for key, value in update_data.items():
+        setattr(db_primary_goal, key, value)
+
+    db.commit()
+    db.refresh(db_primary_goal)
+    return db_primary_goal
+
+
+def get_primary_goal(db: Session, user_id: int):
+    return db.query(models.PrimaryGoal).filter(models.PrimaryGoal.user_id == user_id).first()
+
+
+# Milestone CRUD operations
+
+def create_milestone(db: Session, milestone: schemas.MilestoneCreate, user_id: int):
+    db_milestone = models.Milestone(
+        user_id=user_id,
+        key=milestone.key,
+        title=milestone.title,
+        description=milestone.description
+    )
+    db.add(db_milestone)
+    db.commit()
+    db.refresh(db_milestone)
+    return db_milestone
+
+
+def get_milestones(db: Session, user_id: int):
+    return db.query(models.Milestone).filter(models.Milestone.user_id == user_id).all()
+
+
+def get_milestone(db: Session, milestone_id: int):
+    return db.query(models.Milestone).filter(models.Milestone.id == milestone_id).first()
+
+
+# Factors CRUD operations
+
+def create_factor(db: Session, factor: schemas.FactorCreate, user_id: int):
+    db_factor = models.Factor(
+        user_id=user_id,
+        category=factor.category,
+        title=factor.title
+    )
+    db.add(db_factor)
+    db.commit()
+    db.refresh(db_factor)
+    return db_factor
+
+
+def get_factors(db: Session, user_id: int):
+    return db.query(models.Factor).filter(models.Factor.user_id == user_id).all()
+
+
+def get_factor(db: Session, factor_id: int):
+    return db.query(models.Factor).filter(models.Factor.id == factor_id).first()
+
+
+def delete_factor(db: Session, factor_id: int):
+    db_factor = db.query(models.Factor).filter(models.Factor.id == factor_id).first()
+    if not db_factor:
+        raise NoResultFound("Factor not found")
+
+    db.delete(db_factor)
+    db.commit()
+    return db_factor
+
+
+# Symptoms CRUD operations
+
+def create_symptom(db: Session, symptom: schemas.SymptomCreate, user_id: int):
+    db_symptom = models.Symptom(
+        user_id=user_id,
+        title=symptom.title,
+        description=symptom.description
+    )
+    db.add(db_symptom)
+    db.commit()
+    db.refresh(db_symptom)
+    return db_symptom
+
+
+def get_symptoms(db: Session, user_id: int):
+    return db.query(models.Symptom).filter(models.Symptom.user_id == user_id).all()
+
+
+def get_symptom(db: Session, symptom_id: int):
+    return db.query(models.Symptom).filter(models.Symptom.id == symptom_id).first()
+
+
+def delete_symptom(db: Session, symptom_id: int):
+    db_symptom = db.query(models.Symptom).filter(models.Symptom.id == symptom_id).first()
+    if not db_symptom:
+        raise NoResultFound("Symptom not found")
+
+    db.delete(db_symptom)
+    db.commit()
+    return db_symptom
+
+
+# Activity CRUD operations
+
+def create_activity(db: Session, activity: schemas.ActivityCreate, user_id: int):
+    db_activity = models.Activity(
+        user_id=user_id,
+        category=activity.category,
+        title=activity.title,
+        date_achieved=activity.date_achieved
+    )
+    db.add(db_activity)
+    db.commit()
+    db.refresh(db_activity)
+    return db_activity
+
+
+def get_activities(db: Session, user_id: int):
+    return db.query(models.Activity).filter(models.Activity.user_id == user_id).all()
+
+
+def get_activity(db: Session, activity_id: int):
+    return db.query(models.Activity).filter(models.Activity.id == activity_id).first()
+
+
+def delete_activity(db: Session, activity_id: int):
+    db_activity = db.query(models.Activity).filter(models.Activity.id == activity_id).first()
+    if not db_activity:
+        raise NoResultFound("Activity not found")
+
+    db.delete(db_activity)
+    db.commit()
+    return db_activity
