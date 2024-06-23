@@ -1,13 +1,15 @@
 from fastapi import FastAPI, HTTPException, Request
 from fastapi.responses import JSONResponse
 from .database import engine, Base
-from .routes import user
+from .routes import users, factors
 
 Base.metadata.create_all(bind=engine)
 
 app = FastAPI()
 
-app.include_router(user.router)
+app.include_router(users.router)
+app.include_router(factors.router)
+
 
 @app.exception_handler(HTTPException)
 async def custom_http_exception_handler(request: Request, exc: HTTPException):
