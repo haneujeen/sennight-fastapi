@@ -19,8 +19,8 @@ class User(Base):
     # Relationships
     primary_goal = relationship("PrimaryGoal", back_populates="user", uselist=False, cascade="all, delete-orphan")
     milestones = relationship("Milestone", back_populates="user", cascade="all, delete-orphan")
-    factors = relationship("Factors", back_populates="user", cascade="all, delete-orphan")
-    symptoms = relationship("Symptoms", back_populates="user", cascade="all, delete-orphan")
+    factors = relationship("Factor", back_populates="user", cascade="all, delete-orphan")
+    symptoms = relationship("Symptom", back_populates="user", cascade="all, delete-orphan")
     activities = relationship("Activity", back_populates="user", cascade="all, delete-orphan")
 
     def soft_delete(self):

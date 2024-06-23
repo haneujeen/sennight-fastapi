@@ -31,7 +31,7 @@ class PrimaryGoalResponse(BaseModel):
     description: str
 
     class Config:
-        orm_mode = True
+        from_attributes = True
 
 
 class MilestoneResponse(BaseModel):
@@ -40,30 +40,30 @@ class MilestoneResponse(BaseModel):
     key: str
     title: str
     description: str
-    date_achieved: date
+    date_achieved: datetime
 
     class Config:
-        orm_mode = True
+        from_attributes = True
 
 
-class FactorsResponse(BaseModel):
+class FactorResponse(BaseModel):
     id: int
     user_id: int
     category: str
     title: str
 
     class Config:
-        orm_mode = True
+        from_attributes = True
 
 
-class SymptomsResponse(BaseModel):
+class SymptomResponse(BaseModel):
     id: int
     user_id: int
     title: str
     description: str
 
     class Config:
-        orm_mode = True
+        from_attributes = True
 
 
 class ActivityResponse(BaseModel):
@@ -73,7 +73,7 @@ class ActivityResponse(BaseModel):
     title: str
 
     class Config:
-        orm_mode = True
+        from_attributes = True
 
 
 class UserResponse(BaseModel):
@@ -88,12 +88,12 @@ class UserResponse(BaseModel):
     deleted_at: Optional[datetime] = None
     primary_goal: Optional[PrimaryGoalResponse] = None
     milestones: List[MilestoneResponse] = []
-    factors: List[FactorsResponse] = []
-    symptoms: List[SymptomsResponse] = []
+    factors: List[FactorResponse] = []
+    symptoms: List[SymptomResponse] = []
     activities: List[ActivityResponse] = []
 
     class Config:
-        orm_mode = True
+        from_attributes = True
 
 
 class PrimaryGoalCreate(BaseModel):
@@ -112,12 +112,12 @@ class MilestoneCreate(BaseModel):
     description: str = Field(..., max_length=255)
 
 
-class FactorsCreate(BaseModel):
+class FactorCreate(BaseModel):
     category: str = Field(..., max_length=50)
     title: str = Field(..., max_length=255)
 
 
-class SymptomsCreate(BaseModel):
+class SymptomCreate(BaseModel):
     title: str = Field(..., max_length=50)
     description: str = Field(..., max_length=255)
 
