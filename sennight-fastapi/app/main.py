@@ -15,7 +15,7 @@ app.include_router(factors.router)
 
 @app.middleware("http")
 async def jwt_middleware(request: Request, call_next):
-    if request.url.path.startswith("/users"):
+    if request.method == "POST" and request.url.path.startswith("/users"):
         return await call_next(request)
 
     authorization: str = request.headers.get("Authorization")
