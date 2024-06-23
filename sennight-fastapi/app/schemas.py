@@ -2,6 +2,7 @@ from pydantic import BaseModel, EmailStr, Field
 from typing import Optional
 from datetime import date
 
+
 class UserCreate(BaseModel):
     email: EmailStr
     name: str
@@ -10,6 +11,8 @@ class UserCreate(BaseModel):
     daily_cigarettes: Optional[int] = None
     cigarette_price: Optional[float] = None
 
+
 class UserLogin(BaseModel):
     email: EmailStr
     password: str
+
