@@ -1,12 +1,12 @@
 from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
+from .config import settings
 
-DATABASE_URL = "mysql+mysqlconnector://root:12345678@localhost:3306/sennightdb"
-
-engine = create_engine(DATABASE_URL)
+engine = create_engine(settings.DATABASE_URL)
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 Base = declarative_base()
+
 
 # Add dependency
 def get_db():
