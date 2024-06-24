@@ -24,7 +24,7 @@ class UserUpdate(BaseModel):
     cigarette_price: Optional[float] = None
 
 
-class PrimaryGoalResponse(BaseModel):
+class MotivationResponse(BaseModel):
     id: int
     user_id: int
     category: str
@@ -51,6 +51,8 @@ class FactorResponse(BaseModel):
     user_id: int
     category: str
     title: str
+    start_date: date
+    end_date: Optional[date]
 
     class Config:
         from_attributes = True
@@ -59,6 +61,7 @@ class FactorResponse(BaseModel):
 class SymptomResponse(BaseModel):
     id: int
     user_id: int
+    key: str
     title: str
     description: str
 
@@ -69,6 +72,7 @@ class SymptomResponse(BaseModel):
 class ActivityResponse(BaseModel):
     id: int
     user_id: int
+    key: str
     category: str
     title: str
 
@@ -86,7 +90,7 @@ class UserResponse(BaseModel):
     created_at: datetime
     updated_at: datetime
     deleted_at: Optional[datetime] = None
-    primary_goal: Optional[PrimaryGoalResponse] = None
+    motivations: List[MotivationResponse] = []
     milestones: List[MilestoneResponse] = []
     factors: List[FactorResponse] = []
     symptoms: List[SymptomResponse] = []
@@ -96,14 +100,10 @@ class UserResponse(BaseModel):
         from_attributes = True
 
 
-class PrimaryGoalCreate(BaseModel):
+class MotivationCreate(BaseModel):
+    key: str = Field(..., max_length=6)
     category: str = Field(..., max_length=50)
     description: str = Field(..., max_length=255)
-
-
-class PrimaryGoalUpdate(BaseModel):
-    category: Optional[str] = Field(None, max_length=50)
-    description: Optional[str] = Field(None, max_length=255)
 
 
 class MilestoneCreate(BaseModel):
@@ -113,15 +113,26 @@ class MilestoneCreate(BaseModel):
 
 
 class FactorCreate(BaseModel):
-    category: str = Field(..., max_length=50)
-    title: str = Field(..., max_length=255)
+    category: str
+    title: str
+    start_date: date
+    end_date: Optional[date] = None
+
+
+class FactorUpdate(BaseModel):
+    category: str
+    title: str
+    start_date: date
+    end_date: Optional[date] = None
 
 
 class SymptomCreate(BaseModel):
+    key: str = Field(..., max_length=6)
     title: str = Field(..., max_length=50)
     description: str = Field(..., max_length=255)
 
 
 class ActivityCreate(BaseModel):
+    key: str = Field(..., max_length=6)
     category: str = Field(..., max_length=50)
     title: str = Field(..., max_length=255)

@@ -1,5 +1,6 @@
 from sqlalchemy import Column, Integer, String, Date, Float, DateTime, func, ForeignKey
 from sqlalchemy.orm import relationship
+from datetime import date
 from .database import Base
 
 
@@ -17,7 +18,7 @@ class User(Base):
     deleted_at = Column(DateTime, nullable=True)
 
     # Relationships
-    primary_goal = relationship("PrimaryGoal", back_populates="user", uselist=False, cascade="all, delete-orphan")
+    motivations = relationship("Motivation", back_populates="user", cascade="all, delete-orphan")
     milestones = relationship("Milestone", back_populates="user", cascade="all, delete-orphan")
     factors = relationship("Factor", back_populates="user", cascade="all, delete-orphan")
     symptoms = relationship("Symptom", back_populates="user", cascade="all, delete-orphan")
@@ -27,15 +28,16 @@ class User(Base):
         self.deleted_at = func.now()
 
 
-class PrimaryGoal(Base):
-    __tablename__ = "primary_goals"
+class Motivation(Base):
+    __tablename__ = "motivations"
 
     id = Column(Integer, primary_key=True, autoincrement=True)
-    user_id = Column(Integer, ForeignKey("users.id", ondelete="CASCADE"), unique=True)
+    user_id = Column(Integer, ForeignKey("users.id", ondelete="CASCADE"))
+    key = Column(String(6))
     category = Column(String(50))
     description = Column(String(255))
 
-    user = relationship("User", back_populates="primary_goal")
+    user = relationship("User", back_populates="motivations")
 
 
 class Milestone(Base):
@@ -58,6 +60,8 @@ class Factor(Base):
     user_id = Column(Integer, ForeignKey("users.id", ondelete="CASCADE"))
     category = Column(String(50))
     title = Column(String(255))
+    start_date = Column(Date)
+    end_date = Column(Date, nullable=True)
 
     user = relationship("User", back_populates="factors")
 
@@ -67,6 +71,7 @@ class Symptom(Base):
 
     id = Column(Integer, primary_key=True, autoincrement=True)
     user_id = Column(Integer, ForeignKey("users.id", ondelete="CASCADE"))
+    key = Column(String(6))
     title = Column(String(50))
     description = Column(String(255))
 
@@ -78,6 +83,7 @@ class Activity(Base):
 
     id = Column(Integer, primary_key=True, autoincrement=True)
     user_id = Column(Integer, ForeignKey("users.id", ondelete="CASCADE"))
+    key = Column(String(6))
     category = Column(String(50))
     title = Column(String(255))
 

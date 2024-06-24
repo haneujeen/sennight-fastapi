@@ -43,3 +43,51 @@ async def login_user(user: schemas.UserLogin, db: Session = Depends(database.get
             "token_type": "bearer"
         }
     }
+
+
+@router.patch("/users/{user_id}")
+async def update_user(user_id: int, user: schemas.UserUpdate, db: Session = Depends(database.get_db)):
+    db_user = crud.get_user(db, user_id)
+    if not db_user:
+        raise HTTPException(status_code=404, detail="User not found")
+
+    updated_user = crud.update_user(db, user_id, user)
+    return {
+        "status": True,
+        "detail": "User updated successfully",
+        "data": {
+            "email": updated_user.email,
+            "name": updated_user.name,
+            "start_date": updated_user.start_date,
+            "daily_cigarettes": updated_user.daily_cigarettes,
+            "cigarette_price": updated_user.cigarette_price,
+            "updated_at": updated_user.updated_at
+        }
+    }
+
+
+@router.get("/users/{user_id}", response_model=schemas.UserResponse)
+async def get_user(user_id: int, db: Session = Depends(database.get_db)):
+    user = crud.get_user(db, user_id)
+    if not user:
+        raise HTTPException(status_code=404, detail="User not found")
+
+    return user
+
+
+@router.delete("/users/{user_id}")
+async def delete_user(user_id: int, db: Session = Depends(database.get_db)):
+    user = crud.delete_user(db, user_id)
+    if not user:
+        raise HTTPException(status_code=404, detail="User not found")
+
+    return {
+        "status": True,
+        "detail": "User deleted successfully",
+        "data": {
+            "id": user.id,
+            "email": user.email,
+            "name": user.name,
+            "deleted_at": user.deleted_at
+        }
+    }
