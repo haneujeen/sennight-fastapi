@@ -1,6 +1,7 @@
+from fastapi import HTTPException
 from sqlalchemy.orm import Session
 from sqlalchemy.exc import NoResultFound
-from datetime import datetime
+from datetime import datetime, date
 from . import models, schemas, security
 
 
@@ -63,36 +64,33 @@ def delete_user(db: Session, user_id: int):
     return db_user
 
 
-# PrimaryGoal CRUD operations
+# Motivation CRUD operations
 
-def create_primary_goal(db: Session, primary_goal: schemas.PrimaryGoalCreate, user_id: int):
-    db_primary_goal = models.PrimaryGoal(
+def create_motivation(db: Session, motivation: schemas.MotivationCreate, user_id: int):
+    db_motivation = models.Motivation(
         user_id=user_id,
-        category=primary_goal.category,
-        description=primary_goal.description
+        key=motivation.key,
+        category=motivation.category,
+        description=motivation.description
     )
-    db.add(db_primary_goal)
+    db.add(db_motivation)
     db.commit()
-    db.refresh(db_primary_goal)
-    return db_primary_goal
+    db.refresh(db_motivation)
+    return db_motivation
 
 
-def update_primary_goal(db: Session, user_id: int, primary_goal_update: schemas.PrimaryGoalUpdate):
-    db_primary_goal = db.query(models.PrimaryGoal).filter(models.PrimaryGoal.user_id == user_id).first()
-    if not db_primary_goal:
-        raise NoResultFound("Primary goal not found")
+def get_motivations(db: Session, user_id: int):
+    return db.query(models.Motivation).filter(models.Motivation.user_id == user_id).all()
 
-    update_data = primary_goal_update.dict(exclude_unset=True)
-    for key, value in update_data.items():
-        setattr(db_primary_goal, key, value)
 
+def delete_motivation(db: Session, motivation_id: int):
+    db_motivation = db.query(models.Motivation).filter(models.Motivation.id == motivation_id).first()
+    if not db_motivation:
+        raise NoResultFound("Motivation not found")
+
+    db.delete(db_motivation)
     db.commit()
-    db.refresh(db_primary_goal)
-    return db_primary_goal
-
-
-def get_primary_goal(db: Session, user_id: int):
-    return db.query(models.PrimaryGoal).filter(models.PrimaryGoal.user_id == user_id).first()
+    return db_motivation
 
 
 # Milestone CRUD operations
@@ -124,9 +122,23 @@ def create_factor(db: Session, factor: schemas.FactorCreate, user_id: int):
     db_factor = models.Factor(
         user_id=user_id,
         category=factor.category,
-        title=factor.title
+        title=factor.title,
+        start_date=factor.start_date,
+        end_date=factor.end_date
     )
     db.add(db_factor)
+    db.commit()
+    db.refresh(db_factor)
+    return db_factor
+
+
+def update_factor(db: Session, factor_id: int, factor: schemas.FactorUpdate):
+    db_factor = db.query(models.Factor).filter(models.Factor.id == factor_id).first()
+
+    update_data = factor.dict(exclude_unset=True)
+    for key, value in update_data.items():
+        setattr(db_factor, key, value)
+
     db.commit()
     db.refresh(db_factor)
     return db_factor
@@ -143,7 +155,7 @@ def get_factor(db: Session, factor_id: int):
 def delete_factor(db: Session, factor_id: int):
     db_factor = db.query(models.Factor).filter(models.Factor.id == factor_id).first()
     if not db_factor:
-        raise NoResultFound("Factor not found")
+        raise HTTPException(status_code=404, detail="Factor not found")
 
     db.delete(db_factor)
     db.commit()
@@ -155,6 +167,7 @@ def delete_factor(db: Session, factor_id: int):
 def create_symptom(db: Session, symptom: schemas.SymptomCreate, user_id: int):
     db_symptom = models.Symptom(
         user_id=user_id,
+        key=symptom.key,
         title=symptom.title,
         description=symptom.description
     )
@@ -187,9 +200,9 @@ def delete_symptom(db: Session, symptom_id: int):
 def create_activity(db: Session, activity: schemas.ActivityCreate, user_id: int):
     db_activity = models.Activity(
         user_id=user_id,
+        key=activity.key,
         category=activity.category,
-        title=activity.title,
-        date_achieved=activity.date_achieved
+        title=activity.title
     )
     db.add(db_activity)
     db.commit()
