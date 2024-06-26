@@ -1,15 +1,14 @@
 from pydantic import BaseModel
 from datetime import date
-from typing import Optional
 
 
 class SmokingLogBase(BaseModel):
-    cigarettes_smoked: Optional[int] = None
-    date: Optional[date] = None
+    cigarettes_smoked: int
+    date: date
 
 
 class SmokingLogCreate(SmokingLogBase):
-    cigarettes_smoked: int
+    pass
 
 
 class SmokingLogUpdate(SmokingLogBase):
