@@ -28,7 +28,7 @@ async def login_user(user: schemas.UserLogin, db: Session = Depends(database.get
     if not authenticated_user:
         raise HTTPException(status_code=400, detail="Invalid email or password")
 
-    access_token = security.create_access_token(data={"sub": authenticated_user.id})
+    access_token = security.create_access_token(data={"sub": str(authenticated_user.id)})
 
     return {
         "status": True,

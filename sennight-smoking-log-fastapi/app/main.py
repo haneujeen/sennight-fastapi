@@ -29,7 +29,8 @@ async def jwt_middleware(request: Request, call_next):
             raise JWTError()
         request.state.user_id = user_id
 
-    except JWTError:
+    except JWTError as e:
+        print(f"JWTError: {e}")
         return JSONResponse(
             status_code=401,
             content={"status": False, "detail": "Invalid token", "data": None}
