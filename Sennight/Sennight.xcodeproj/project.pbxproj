@@ -372,8 +372,8 @@
 			isa = PBXGroup;
 			children = (
 				4E0F84C02C2D3C590037AE25 /* Cards */,
-				4E0F84A52C2D33DA0037AE25 /* DashboardView.swift */,
 				4E0F84BE2C2D3C220037AE25 /* DashboardHeaderView.swift */,
+				4E0F84A52C2D33DA0037AE25 /* DashboardView.swift */,
 			);
 			path = Dashboard;
 			sourceTree = "<group>";
