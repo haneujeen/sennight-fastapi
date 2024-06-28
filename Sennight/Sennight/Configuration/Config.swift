@@ -7,3 +7,10 @@
 
 import Foundation
 
+class Settings {
+    static let shared = Settings()
+        
+    private init() {}
+    
+    let HOST = ProcessInfo.processInfo.environment["HOST"] ?? ""
+}
