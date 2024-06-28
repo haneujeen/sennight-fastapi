@@ -78,6 +78,7 @@
 		4E0F84E52C2D3FA60037AE25 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 4E0F84E42C2D3FA60037AE25 /* Localizable.xcstrings */; };
 		4E9AC0A62C2E844700B3C2F0 /* FactorDetailEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9AC0A52C2E844700B3C2F0 /* FactorDetailEditView.swift */; };
 		4E9AC0A82C2E863500B3C2F0 /* UpdateFactorSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9AC0A72C2E863500B3C2F0 /* UpdateFactorSheet.swift */; };
+		4ECADF932C2E8DEC00E8861C /* CircularGauge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECADF922C2E8DEC00E8861C /* CircularGauge.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -172,6 +173,7 @@
 		4E0F84E42C2D3FA60037AE25 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
 		4E9AC0A52C2E844700B3C2F0 /* FactorDetailEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FactorDetailEditView.swift; sourceTree = "<group>"; };
 		4E9AC0A72C2E863500B3C2F0 /* UpdateFactorSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateFactorSheet.swift; sourceTree = "<group>"; };
+		4ECADF922C2E8DEC00E8861C /* CircularGauge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircularGauge.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -419,6 +421,7 @@
 		4E0F84C02C2D3C590037AE25 /* Cards */ = {
 			isa = PBXGroup;
 			children = (
+				4ECADF922C2E8DEC00E8861C /* CircularGauge.swift */,
 				4E0F84C12C2D3C8B0037AE25 /* HealthProgressCardView.swift */,
 				4E0F84C32C2D3CBB0037AE25 /* MotivationCardView.swift */,
 				4E0F84C52C2D3CC70037AE25 /* MoneySavedCardView.swift */,
@@ -580,6 +583,7 @@
 				4E0F84C82C2D3D0B0037AE25 /* FactorsCardView.swift in Sources */,
 				4E9AC0A82C2E863500B3C2F0 /* UpdateFactorSheet.swift in Sources */,
 				4E0F84E32C2D3EE40037AE25 /* NewSmokingLogSheet.swift in Sources */,
+				4ECADF932C2E8DEC00E8861C /* CircularGauge.swift in Sources */,
 				4E0F84D42C2D3D850037AE25 /* ActivitiesCardView.swift in Sources */,
 				4E0F84942C2D301B0037AE25 /* FactorService.swift in Sources */,
 				4E0F84A22C2D30AE0037AE25 /* MilestonePostService.swift in Sources */,
