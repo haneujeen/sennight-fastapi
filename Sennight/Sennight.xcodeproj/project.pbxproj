@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4E0BF7DF2C2E4C2B0091ADB2 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0BF7DE2C2E4C2B0091ADB2 /* Config.swift */; };
+		4E0BF7E22C2E4CC20091ADB2 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 4E0BF7E12C2E4CC20091ADB2 /* Alamofire */; };
+		4E0BF7E52C2E4CEB0091ADB2 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 4E0BF7E42C2E4CEB0091ADB2 /* Kingfisher */; };
 		4E0F84292C2D07F70037AE25 /* SennightApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0F84282C2D07F70037AE25 /* SennightApp.swift */; };
 		4E0F842B2C2D07F70037AE25 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0F842A2C2D07F70037AE25 /* ContentView.swift */; };
 		4E0F842D2C2D07F90037AE25 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4E0F842C2C2D07F90037AE25 /* Assets.xcassets */; };
@@ -95,6 +98,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		4E0BF7DE2C2E4C2B0091ADB2 /* Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
 		4E0F84252C2D07F70037AE25 /* Sennight.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Sennight.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4E0F84282C2D07F70037AE25 /* SennightApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SennightApp.swift; sourceTree = "<group>"; };
 		4E0F842A2C2D07F70037AE25 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -166,7 +170,6 @@
 		4E0F84E02C2D3ECC0037AE25 /* NewActivitySheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewActivitySheet.swift; sourceTree = "<group>"; };
 		4E0F84E22C2D3EE40037AE25 /* NewSmokingLogSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewSmokingLogSheet.swift; sourceTree = "<group>"; };
 		4E0F84E42C2D3FA60037AE25 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
-		4E0F84E62C2D3FFF0037AE25 /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -174,6 +177,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4E0BF7E52C2E4CEB0091ADB2 /* Kingfisher in Frameworks */,
+				4E0BF7E22C2E4CC20091ADB2 /* Alamofire in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -406,7 +411,7 @@
 		4E0F84AB2C2D340F0037AE25 /* Configuration */ = {
 			isa = PBXGroup;
 			children = (
-				4E0F84E62C2D3FFF0037AE25 /* Config.xcconfig */,
+				4E0BF7DE2C2E4C2B0091ADB2 /* Config.swift */,
 			);
 			path = Configuration;
 			sourceTree = "<group>";
@@ -448,6 +453,10 @@
 			dependencies = (
 			);
 			name = Sennight;
+			packageProductDependencies = (
+				4E0BF7E12C2E4CC20091ADB2 /* Alamofire */,
+				4E0BF7E42C2E4CEB0091ADB2 /* Kingfisher */,
+			);
 			productName = Sennight;
 			productReference = 4E0F84252C2D07F70037AE25 /* Sennight.app */;
 			productType = "com.apple.product-type.application";
@@ -522,6 +531,10 @@
 				fr,
 			);
 			mainGroup = 4E0F841C2C2D07F70037AE25;
+			packageReferences = (
+				4E0BF7E02C2E4C790091ADB2 /* XCRemoteSwiftPackageReference "Alamofire" */,
+				4E0BF7E32C2E4CEB0091ADB2 /* XCRemoteSwiftPackageReference "Kingfisher" */,
+			);
 			productRefGroup = 4E0F84262C2D07F70037AE25 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -603,6 +616,7 @@
 				4E0F84AD2C2D34910037AE25 /* User.swift in Sources */,
 				4E0F849E2C2D30720037AE25 /* MilestoneListViewModel.swift in Sources */,
 				4E0F84DD2C2D3E940037AE25 /* NewFactorSheet.swift in Sources */,
+				4E0BF7DF2C2E4C2B0091ADB2 /* Config.swift in Sources */,
 				4E0F846C2C2D28E60037AE25 /* OnboardingStep1View.swift in Sources */,
 				4E0F84E12C2D3ECC0037AE25 /* NewActivitySheet.swift in Sources */,
 				4E0F84962C2D30260037AE25 /* SymptomService.swift in Sources */,
@@ -956,6 +970,38 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		4E0BF7E02C2E4C790091ADB2 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Alamofire/Alamofire";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.9.1;
+			};
+		};
+		4E0BF7E32C2E4CEB0091ADB2 /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/onevcat/Kingfisher";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 7.12.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		4E0BF7E12C2E4CC20091ADB2 /* Alamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4E0BF7E02C2E4C790091ADB2 /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = Alamofire;
+		};
+		4E0BF7E42C2E4CEB0091ADB2 /* Kingfisher */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4E0BF7E32C2E4CEB0091ADB2 /* XCRemoteSwiftPackageReference "Kingfisher" */;
+			productName = Kingfisher;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 4E0F841D2C2D07F70037AE25 /* Project object */;
 }
