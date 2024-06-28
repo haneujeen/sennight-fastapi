@@ -9,7 +9,24 @@ import SwiftUI
 
 struct HomeView: View {
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        TabView {
+            DashboardView()
+                .tabItem {
+                    Label("Dashboard", systemImage: "tray.and.arrow.down.fill")
+                }
+                .badge(2)
+            
+            MilestonePostsView()
+                .tabItem {
+                    Label("Milestones", systemImage: "tray.and.arrow.up.fill")
+                }
+            
+            SettingsView()
+                .tabItem {
+                    Label("Settings", systemImage: "person.crop.circle.fill")
+                }
+                .badge("!")
+        }
     }
 }
 

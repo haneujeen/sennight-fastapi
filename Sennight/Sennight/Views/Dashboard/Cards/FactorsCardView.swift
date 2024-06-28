@@ -8,8 +8,20 @@
 import SwiftUI
 
 struct FactorsCardView: View {
+    @State private var isPresentingUpdateFactorSheet = false
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        Section(header: Text("Factors")) {
+            ForEach(0..<3) { _ in
+                FactorRowView()
+                    .onTapGesture {
+                        isPresentingUpdateFactorSheet = true
+                    }
+                    .sheet(isPresented: $isPresentingUpdateFactorSheet) {
+                        UpdateFactorSheet(isPresentingUpdateFactorSheet: $isPresentingUpdateFactorSheet)
+                    }
+            }
+        }
     }
 }
 

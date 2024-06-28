@@ -9,7 +9,11 @@ import SwiftUI
 
 struct SymptomsCardView: View {
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        Section(header: Text("Symptoms")) {
+            ForEach(0..<3) { _ in
+                SymptomRowView()
+            }
+        }
     }
 }
 

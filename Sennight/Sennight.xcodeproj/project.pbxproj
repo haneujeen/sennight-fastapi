@@ -8,8 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		4E0BF7DF2C2E4C2B0091ADB2 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0BF7DE2C2E4C2B0091ADB2 /* Config.swift */; };
-		4E0BF7E22C2E4CC20091ADB2 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 4E0BF7E12C2E4CC20091ADB2 /* Alamofire */; };
-		4E0BF7E52C2E4CEB0091ADB2 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 4E0BF7E42C2E4CEB0091ADB2 /* Kingfisher */; };
 		4E0F84292C2D07F70037AE25 /* SennightApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0F84282C2D07F70037AE25 /* SennightApp.swift */; };
 		4E0F842B2C2D07F70037AE25 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0F842A2C2D07F70037AE25 /* ContentView.swift */; };
 		4E0F842D2C2D07F90037AE25 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4E0F842C2C2D07F90037AE25 /* Assets.xcassets */; };
@@ -78,6 +76,8 @@
 		4E0F84E12C2D3ECC0037AE25 /* NewActivitySheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0F84E02C2D3ECC0037AE25 /* NewActivitySheet.swift */; };
 		4E0F84E32C2D3EE40037AE25 /* NewSmokingLogSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0F84E22C2D3EE40037AE25 /* NewSmokingLogSheet.swift */; };
 		4E0F84E52C2D3FA60037AE25 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 4E0F84E42C2D3FA60037AE25 /* Localizable.xcstrings */; };
+		4E9AC0A62C2E844700B3C2F0 /* FactorDetailEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9AC0A52C2E844700B3C2F0 /* FactorDetailEditView.swift */; };
+		4E9AC0A82C2E863500B3C2F0 /* UpdateFactorSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9AC0A72C2E863500B3C2F0 /* UpdateFactorSheet.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -170,6 +170,8 @@
 		4E0F84E02C2D3ECC0037AE25 /* NewActivitySheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewActivitySheet.swift; sourceTree = "<group>"; };
 		4E0F84E22C2D3EE40037AE25 /* NewSmokingLogSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewSmokingLogSheet.swift; sourceTree = "<group>"; };
 		4E0F84E42C2D3FA60037AE25 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
+		4E9AC0A52C2E844700B3C2F0 /* FactorDetailEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FactorDetailEditView.swift; sourceTree = "<group>"; };
+		4E9AC0A72C2E863500B3C2F0 /* UpdateFactorSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateFactorSheet.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -177,8 +179,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4E0BF7E52C2E4CEB0091ADB2 /* Kingfisher in Frameworks */,
-				4E0BF7E22C2E4CC20091ADB2 /* Alamofire in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -422,7 +422,9 @@
 				4E0F84C12C2D3C8B0037AE25 /* HealthProgressCardView.swift */,
 				4E0F84C32C2D3CBB0037AE25 /* MotivationCardView.swift */,
 				4E0F84C52C2D3CC70037AE25 /* MoneySavedCardView.swift */,
+				4E9AC0A52C2E844700B3C2F0 /* FactorDetailEditView.swift */,
 				4E0F84DC2C2D3E940037AE25 /* NewFactorSheet.swift */,
+				4E9AC0A72C2E863500B3C2F0 /* UpdateFactorSheet.swift */,
 				4E0F84C92C2D3D3D0037AE25 /* FactorRowView.swift */,
 				4E0F84C72C2D3D0B0037AE25 /* FactorsCardView.swift */,
 				4E0F84DE2C2D3EB80037AE25 /* NewSymptomSheet.swift */,
@@ -454,8 +456,6 @@
 			);
 			name = Sennight;
 			packageProductDependencies = (
-				4E0BF7E12C2E4CC20091ADB2 /* Alamofire */,
-				4E0BF7E42C2E4CEB0091ADB2 /* Kingfisher */,
 			);
 			productName = Sennight;
 			productReference = 4E0F84252C2D07F70037AE25 /* Sennight.app */;
@@ -532,8 +532,6 @@
 			);
 			mainGroup = 4E0F841C2C2D07F70037AE25;
 			packageReferences = (
-				4E0BF7E02C2E4C790091ADB2 /* XCRemoteSwiftPackageReference "Alamofire" */,
-				4E0BF7E32C2E4CEB0091ADB2 /* XCRemoteSwiftPackageReference "Kingfisher" */,
 			);
 			productRefGroup = 4E0F84262C2D07F70037AE25 /* Products */;
 			projectDirPath = "";
@@ -580,12 +578,14 @@
 			files = (
 				4E0F84662C2D10A30037AE25 /* SplashScreenView.swift in Sources */,
 				4E0F84C82C2D3D0B0037AE25 /* FactorsCardView.swift in Sources */,
+				4E9AC0A82C2E863500B3C2F0 /* UpdateFactorSheet.swift in Sources */,
 				4E0F84E32C2D3EE40037AE25 /* NewSmokingLogSheet.swift in Sources */,
 				4E0F84D42C2D3D850037AE25 /* ActivitiesCardView.swift in Sources */,
 				4E0F84942C2D301B0037AE25 /* FactorService.swift in Sources */,
 				4E0F84A22C2D30AE0037AE25 /* MilestonePostService.swift in Sources */,
 				4E0F84D82C2D3DFC0037AE25 /* SmokingLogChartCardView.swift in Sources */,
 				4E0F84CA2C2D3D3D0037AE25 /* FactorRowView.swift in Sources */,
+				4E9AC0A62C2E844700B3C2F0 /* FactorDetailEditView.swift in Sources */,
 				4E0F84BD2C2D34CD0037AE25 /* Theme.swift in Sources */,
 				4E0F849A2C2D30460037AE25 /* MilestoneService.swift in Sources */,
 				4E0F84D62C2D3D8E0037AE25 /* ActivityRowView.swift in Sources */,
@@ -970,38 +970,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCRemoteSwiftPackageReference section */
-		4E0BF7E02C2E4C790091ADB2 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/Alamofire/Alamofire";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 5.9.1;
-			};
-		};
-		4E0BF7E32C2E4CEB0091ADB2 /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/onevcat/Kingfisher";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 7.12.0;
-			};
-		};
-/* End XCRemoteSwiftPackageReference section */
-
-/* Begin XCSwiftPackageProductDependency section */
-		4E0BF7E12C2E4CC20091ADB2 /* Alamofire */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 4E0BF7E02C2E4C790091ADB2 /* XCRemoteSwiftPackageReference "Alamofire" */;
-			productName = Alamofire;
-		};
-		4E0BF7E42C2E4CEB0091ADB2 /* Kingfisher */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 4E0BF7E32C2E4CEB0091ADB2 /* XCRemoteSwiftPackageReference "Kingfisher" */;
-			productName = Kingfisher;
-		};
-/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 4E0F841D2C2D07F70037AE25 /* Project object */;
 }

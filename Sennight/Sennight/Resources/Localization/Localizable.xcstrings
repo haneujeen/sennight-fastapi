@@ -1,7 +1,72 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
+    "!" : {
 
+    },
+    "Activity row" : {
+
+    },
+    "Dashboard" : {
+
+    },
+    "Dashboard header" : {
+
+    },
+    "Factor detail edit" : {
+
+    },
+    "Factor row" : {
+
+    },
+    "Factors" : {
+
+    },
+    "Health progress card" : {
+
+    },
+    "Hello, World!" : {
+
+    },
+    "Milestone post card" : {
+
+    },
+    "Milestone posts" : {
+
+    },
+    "Milestones" : {
+
+    },
+    "Money saved card" : {
+
+    },
+    "Motivation card" : {
+
+    },
+    "New activity sheet" : {
+
+    },
+    "New factor sheet" : {
+
+    },
+    "New smoking sheet" : {
+
+    },
+    "New symptom sheet" : {
+
+    },
+    "Settings" : {
+
+    },
+    "Smoking log chart card" : {
+
+    },
+    "Symptom row" : {
+
+    },
+    "Update factor sheet" : {
+
+    }
   },
   "version" : "1.0"
 }

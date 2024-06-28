@@ -9,7 +9,11 @@ import SwiftUI
 
 struct ActivitiesCardView: View {
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        Section(header: Text("Activities")) {
+            ForEach(0..<3) { _ in
+                ActivityRowView()
+            }
+        }
     }
 }
 
