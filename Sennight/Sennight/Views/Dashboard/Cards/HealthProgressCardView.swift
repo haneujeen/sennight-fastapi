@@ -10,7 +10,19 @@ import SwiftUI
 struct HealthProgressCardView: View {
     var body: some View {
         Section {
-            Text("Health progress card")
+            HStack {
+                Spacer()
+                VStack {
+                    Text("Health progress card")
+                    Spacer()
+                    CircularGauge(progress: 0.75)
+                    Spacer()
+                    Button("Add smoking") {
+                        print("Smoking added...")
+                    }
+                }
+                Spacer()
+            }
         }
     }
 }

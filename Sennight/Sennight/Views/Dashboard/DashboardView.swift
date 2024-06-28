@@ -14,7 +14,7 @@ struct DashboardView: View {
                 DashboardHeaderView()
                     .frame(height: 60)
                 HealthProgressCardView()
-                    .frame(height: 150)
+                    .frame(height: 300)
                 MotivationCardView()
                     .frame(height: 40)
                 MoneySavedCardView()
