@@ -9,7 +9,22 @@ import SwiftUI
 
 struct DashboardView: View {
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        NavigationStack {
+            List {
+                DashboardHeaderView()
+                    .frame(height: 60)
+                HealthProgressCardView()
+                    .frame(height: 300)
+                MotivationCardView()
+                    .frame(height: 40)
+                MoneySavedCardView()
+                    .frame(height: 40)
+                FactorsCardView()
+                SymptomsCardView()
+                ActivitiesCardView()
+            }
+        }
+        
     }
 }
 

@@ -9,7 +9,21 @@ import SwiftUI
 
 struct HealthProgressCardView: View {
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        Section {
+            HStack {
+                Spacer()
+                VStack {
+                    Text("Health progress card")
+                    Spacer()
+                    CircularGauge(progress: 0.75)
+                    Spacer()
+                    Button("Add smoking") {
+                        print("Smoking added...")
+                    }
+                }
+                Spacer()
+            }
+        }
     }
 }
 

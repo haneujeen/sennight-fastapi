@@ -9,7 +9,10 @@ import SwiftUI
 
 struct SymptomRowView: View {
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        Text("Symptom row")
+            .frame(maxWidth: .infinity)
+            .background(Color.white)
+            .cornerRadius(10)
     }
 }
 

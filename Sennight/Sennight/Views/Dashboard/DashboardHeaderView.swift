@@ -9,10 +9,15 @@ import SwiftUI
 
 struct DashboardHeaderView: View {
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        Section {
+            Text("Dashboard header")
+        }
     }
 }
 
-#Preview {
-    DashboardHeaderView()
+struct DashboardHeaderView_Previews: PreviewProvider {
+    static var previews: some View {
+        DashboardHeaderView()
+            .previewLayout(.fixed(width: 400, height: 60))
+    }
 }
