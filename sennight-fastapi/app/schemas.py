@@ -7,9 +7,14 @@ class QuitLogBase(BaseModel):
     quit_date: Optional[date] = None
     daily_cigarettes: Optional[int] = None
     cigarette_price: Optional[float] = None
+    is_active: Optional[bool] = True
 
 
 class QuitLogCreate(QuitLogBase):
+    pass
+
+
+class QuitLogUpdate(QuitLogBase):
     pass
 
 
@@ -24,6 +29,10 @@ class QuitLog(QuitLogBase):
 class SmokingLogBase(BaseModel):
     cigarettes_smoked: int
     date: Optional[date] = None
+
+
+class SmokingLogUpdate(SmokingLogBase):
+    pass
 
 
 class SmokingLogCreate(SmokingLogBase):
@@ -59,6 +68,10 @@ class UserMotivationBase(BaseModel):
 
 
 class UserMotivationCreate(UserMotivationBase):
+    motivation_id: int
+
+
+class UserMotivationUpdate(UserMotivationBase):
     motivation_id: int
 
 
@@ -129,6 +142,10 @@ class UserFactorBase(BaseModel):
 
 class UserFactorCreate(UserFactorBase):
     factor_id: int
+
+
+class UserFactorUpdate(UserFactorBase):
+    pass
 
 
 class UserFactor(UserFactorBase):
