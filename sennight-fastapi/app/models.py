@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, Date, Float, DateTime, func, ForeignKey
+from sqlalchemy import Column, Integer, String, Date, Float, DateTime, func, ForeignKey, Boolean, UniqueConstraint
 from sqlalchemy.orm import relationship
 from datetime import datetime, timezone
 from .database import Base
@@ -35,6 +35,7 @@ class QuitLog(Base):
     quit_date = Column(Date, nullable=True)
     daily_cigarettes = Column(Integer, nullable=True)
     cigarette_price = Column(Float, nullable=True)
+    is_active = Column(Boolean, default=True)
 
     user = relationship("User", back_populates="quit_logs")
 
@@ -68,6 +69,8 @@ class UserMotivation(Base):
 
     motivation = relationship("Motivation", back_populates="user_motivations")
     user = relationship("User", back_populates="motivation")
+
+    __table_args__ = (UniqueConstraint('user_id', 'motivation_id', name='_user_motivation_uc'),)
 
 
 class Milestone(Base):
@@ -114,6 +117,8 @@ class UserFactor(Base):
     factor = relationship("Factor", back_populates="user_factors")
     user = relationship("User", back_populates="factors")
 
+    __table_args__ = (UniqueConstraint('user_id', 'factor_id', name='_user_factor_uc'),)
+
 
 class Symptom(Base):
     __tablename__ = "symptom"
@@ -130,10 +135,12 @@ class UserSymptom(Base):
 
     id = Column(Integer, primary_key=True, autoincrement=True)
     user_id = Column(Integer, ForeignKey("user.id", ondelete="CASCADE"))
-    activity_id = Column(Integer, ForeignKey("symptom.id", ondelete="CASCADE"))
+    symptom_id = Column(Integer, ForeignKey("symptom.id", ondelete="CASCADE"))
 
     symptom = relationship("Symptom", back_populates="user_symptoms")
     user = relationship("User", back_populates="symptoms")
+
+    __table_args__ = (UniqueConstraint('user_id', 'symptom_id', name='_user_symptom_uc'),)
 
 
 class Activity(Base):
@@ -155,3 +162,5 @@ class UserActivity(Base):
 
     activity = relationship("Activity", back_populates="user_activities")
     user = relationship("User", back_populates="activities")
+
+    __table_args__ = (UniqueConstraint('user_id', 'activity_id', name='_user_activity_uc'),)
