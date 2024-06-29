@@ -1,89 +1,157 @@
 from sqlalchemy import Column, Integer, String, Date, Float, DateTime, func, ForeignKey
 from sqlalchemy.orm import relationship
+from datetime import datetime, timezone
 from .database import Base
 
 
 class User(Base):
-    __tablename__ = "users"
+    __tablename__ = "user"
     id = Column(Integer, primary_key=True, autoincrement=True)
     email = Column(String(100), unique=True, index=True)
     name = Column(String(50))
     hashed_password = Column(String(255))
-    start_date = Column(Date, nullable=True)
-    daily_cigarettes = Column(Integer, nullable=True)
-    cigarette_price = Column(Float, nullable=True)
+
     created_at = Column(DateTime, server_default=func.now())
     updated_at = Column(DateTime, server_default=func.now(), onupdate=func.now())
     deleted_at = Column(DateTime, nullable=True)
 
     # Relationships
-    motivations = relationship("Motivation", back_populates="user", cascade="all, delete-orphan")
-    milestones = relationship("Milestone", back_populates="user", cascade="all, delete-orphan")
-    factors = relationship("Factor", back_populates="user", cascade="all, delete-orphan")
-    symptoms = relationship("Symptom", back_populates="user", cascade="all, delete-orphan")
-    activities = relationship("Activity", back_populates="user", cascade="all, delete-orphan")
+    quit_logs = relationship("QuitLog", back_populates="user", cascade="all, delete-orphan")
+    smoking_logs = relationship("SmokingLog", back_populates="user", cascade="all, delete-orphan")
+    motivation = relationship("UserMotivation", back_populates="user", cascade="all, delete-orphan")
+    milestones = relationship("UserMilestone", back_populates="user", cascade="all, delete-orphan")
+    factors = relationship("UserFactor", back_populates="user", cascade="all, delete-orphan")
+    symptoms = relationship("UserSymptom", back_populates="user", cascade="all, delete-orphan")
+    activities = relationship("UserActivity", back_populates="user", cascade="all, delete-orphan")
 
     def soft_delete(self):
         self.deleted_at = func.now()
 
 
+class QuitLog(Base):
+    __tablename__ = "quit_log"
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    user_id = Column(Integer, ForeignKey("user.id", ondelete="CASCADE"))
+    quit_date = Column(Date, nullable=True)
+    daily_cigarettes = Column(Integer, nullable=True)
+    cigarette_price = Column(Float, nullable=True)
+
+    user = relationship("User", back_populates="quit_logs")
+
+
+class SmokingLog(Base):
+    __tablename__ = "smoking_log"
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    user_id = Column(Integer, ForeignKey("user.id", ondelete="CASCADE"))
+    cigarettes_smoked = Column(Integer, nullable=False)
+    date = Column(Date, default=lambda: datetime.now(timezone.utc).date())
+
+    user = relationship("User", back_populates="smoking_logs")
+
+
 class Motivation(Base):
-    __tablename__ = "motivations"
+    __tablename__ = "motivation"
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    category = Column(String(50))
+    message = Column(String(255))
+
+    user_motivations = relationship("UserMotivation", back_populates="motivation", cascade="all, delete-orphan")
+
+
+class UserMotivation(Base):
+    __tablename__ = "user_motivation"
 
     id = Column(Integer, primary_key=True, autoincrement=True)
-    user_id = Column(Integer, ForeignKey("users.id", ondelete="CASCADE"))
-    key = Column(String(6))
-    category = Column(String(50))
-    description = Column(String(255))
+    user_id = Column(Integer, ForeignKey("user.id", ondelete="CASCADE"), unique=True)
+    motivation_id = Column(Integer, ForeignKey("motivation.id", ondelete="CASCADE"))
+    message = Column(String(255))
 
-    user = relationship("User", back_populates="motivations")
+    motivation = relationship("Motivation", back_populates="user_motivations")
+    user = relationship("User", back_populates="motivation")
 
 
 class Milestone(Base):
-    __tablename__ = "milestones"
+    __tablename__ = "milestone"
 
     id = Column(Integer, primary_key=True, autoincrement=True)
-    user_id = Column(Integer, ForeignKey("users.id", ondelete="CASCADE"))
-    key = Column(String(6))
     title = Column(String(50))
-    description = Column(String(255))
+    content = Column(String(255))
+
+    user_milestones = relationship("UserMilestones", back_populates="milestone")
+
+
+class UserMilestone(Base):
+    __tablename__ = "user_milestone"
+
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    user_id = Column(Integer, ForeignKey("user.id", ondelete="CASCADE"))
+    milestone_id = Column(Integer, ForeignKey("milestone.id", ondelete="CASCADE"))
     date_achieved = Column(DateTime, server_default=func.now())
 
+    milestone = relationship("Milestone", back_populates="user_milestones")
     user = relationship("User", back_populates="milestones")
 
 
 class Factor(Base):
-    __tablename__ = "factors"
+    __tablename__ = "factor"
 
     id = Column(Integer, primary_key=True, autoincrement=True)
-    user_id = Column(Integer, ForeignKey("users.id", ondelete="CASCADE"))
     category = Column(String(50))
-    title = Column(String(255))
+    name = Column(String(50))
+
+    user_factors = relationship("UserFactor", back_populates="factor")
+
+
+class UserFactor(Base):
+    __tablename__ = "user_factor"
+
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    user_id = Column(Integer, ForeignKey("user.id", ondelete="CASCADE"))
+    factor_id = Column(Integer, ForeignKey("factor.id", ondelete="CASCADE"))
     start_date = Column(Date)
     end_date = Column(Date, nullable=True)
 
+    factor = relationship("Factor", back_populates="user_factors")
     user = relationship("User", back_populates="factors")
 
 
 class Symptom(Base):
-    __tablename__ = "symptoms"
+    __tablename__ = "symptom"
 
     id = Column(Integer, primary_key=True, autoincrement=True)
-    user_id = Column(Integer, ForeignKey("users.id", ondelete="CASCADE"))
-    key = Column(String(6))
     title = Column(String(50))
     description = Column(String(255))
 
+    user_symptoms = relationship("User", back_populates="symptom")
+
+
+class UserSymptom(Base):
+    __tablename__ = "user_symptom"
+
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    user_id = Column(Integer, ForeignKey("user.id", ondelete="CASCADE"))
+    activity_id = Column(Integer, ForeignKey("symptom.id", ondelete="CASCADE"))
+
+    symptom = relationship("Symptom", back_populates="user_symptoms")
     user = relationship("User", back_populates="symptoms")
 
 
 class Activity(Base):
-    __tablename__ = "activities"
+    __tablename__ = "activity"
 
     id = Column(Integer, primary_key=True, autoincrement=True)
-    user_id = Column(Integer, ForeignKey("users.id", ondelete="CASCADE"))
-    key = Column(String(6))
     category = Column(String(50))
-    title = Column(String(255))
+    name = Column(String(255))
 
+    user_activities = relationship("UserActivity", back_populates="activity")
+
+
+class UserActivity(Base):
+    __tablename__ = "user_activity"
+
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    user_id = Column(Integer, ForeignKey("user.id", ondelete="CASCADE"))
+    activity_id = Column(Integer, ForeignKey("activity.id", ondelete="CASCADE"))
+
+    activity = relationship("Activity", back_populates="user_activities")
     user = relationship("User", back_populates="activities")
