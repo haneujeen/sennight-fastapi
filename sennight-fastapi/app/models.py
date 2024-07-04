@@ -65,7 +65,7 @@ class SmokingLog(Base):
 
 
 class HealthBenefit(Base):
-    __tablename__ = "health_benefits"
+    __tablename__ = "health_benefit"
     id = Column(Integer, primary_key=True, autoincrement=True)
     time_interval = Column(String(50))
     name = Column(String(50))
