@@ -47,7 +47,7 @@ class SmokingLog(Base):
     id = Column(Integer, primary_key=True, autoincrement=True)
     user_id = Column(Integer, ForeignKey("user.id", ondelete="CASCADE"))
     cigarettes_smoked = Column(Integer, nullable=False)
-    date = Column(Date, default=lambda: datetime.now(timezone.utc).date())
+    log_date = Column(Date, default=lambda: datetime.now(timezone.utc).date())
 
     user = relationship("User", back_populates="smoking_logs")
 
