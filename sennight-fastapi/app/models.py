@@ -44,7 +44,7 @@ class QuitAttempt(Base):
     __tablename__ = "quit_attempt"
     id = Column(Integer, primary_key=True, autoincrement=True)
     user_id = Column(Integer, ForeignKey("user.id", ondelete="CASCADE"))
-    start_date = Column(Date)
+    start_date = Column(Date, nullable=False)
     end_date = Column(Date)
     is_active = Column(Boolean, nullable=False, default=True)
 
