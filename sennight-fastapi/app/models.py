@@ -67,16 +67,16 @@ class SmokingLog(Base):
 class HealthBenefit(Base):
     __tablename__ = "health_benefit"
     id = Column(Integer, primary_key=True, autoincrement=True)
-    time_interval = Column(String(50))
-    name = Column(String(50))
-    desc = Column(String(255))
+    time_interval = Column(String(50), nullable=False)
+    name = Column(String(50), nullable=False)
+    desc = Column(String(255), nullable=False)
 
 
 class Trigger(Base):
     __tablename__ = "trigger"
     id = Column(Integer, primary_key=True, autoincrement=True)
-    name = Column(String(50))
-    desc = Column(String(255))
+    name = Column(String(50), nullable=False)
+    desc = Column(String(255), nullable=False)
 
     smoking_logs = relationship("SmokingLog", back_populates="trigger", cascade="all, delete-orphan")
 
@@ -84,8 +84,8 @@ class Trigger(Base):
 class Motivation(Base):
     __tablename__ = "motivation"
     id = Column(Integer, primary_key=True, autoincrement=True)
-    category = Column(String(50))
-    message = Column(String(255))
+    category = Column(String(50), nullable=False)
+    message = Column(String(255), nullable=False)
 
     user_motivations = relationship("UserMotivation", back_populates="motivation", cascade="all, delete-orphan")
 
@@ -108,8 +108,8 @@ class Milestone(Base):
     __tablename__ = "milestone"
 
     id = Column(Integer, primary_key=True, autoincrement=True)
-    title = Column(String(50))
-    content = Column(String(255))
+    title = Column(String(50), nullable=False)
+    content = Column(String(255), nullable=False)
 
     user_milestones = relationship("UserMilestones", back_populates="milestone")
 
@@ -133,7 +133,7 @@ class MilestonePost(Base):
     id = Column(Integer, primary_key=True, autoincrement=True)
     user_id = Column(Integer, ForeignKey("user.id", ondelete="CASCADE"))
     user_milestone_id = Column(Integer, ForeignKey("user_milestone.id", ondelete="CASCADE"), unique=True)
-    support_count = Column(Integer)
+    support_count = Column(Integer, default=0)
 
     user = relationship("User", back_populates="milestone_posts")
     user_milestone = relationship("UserMilestone", back_populates="milestone_post")
@@ -143,8 +143,8 @@ class AidProduct(Base):
     __tablename__ = "aid_product"
 
     id = Column(Integer, primary_key=True, autoincrement=True)
-    category = Column(String(50))
-    name = Column(String(50))
+    category = Column(String(50), nullable=False)
+    name = Column(String(50), nullable=False)
 
     user_aid_products = relationship("UserFactor", back_populates="factor")
 
@@ -155,8 +155,8 @@ class UserAidProduct(Base):
     id = Column(Integer, primary_key=True, autoincrement=True)
     user_id = Column(Integer, ForeignKey("user.id", ondelete="CASCADE"))
     aid_product_id = Column(Integer, ForeignKey("aid_product.id", ondelete="CASCADE"))
-    start_date = Column(Date)
-    end_date = Column(Date, nullable=True)
+    start_date = Column(Date, nullable=False)
+    end_date = Column(Date)
 
     factor = relationship("AidProduct", back_populates="user_aid_products")
     user = relationship("User", back_populates="aid_products")
@@ -168,8 +168,8 @@ class Symptom(Base):
     __tablename__ = "symptom"
 
     id = Column(Integer, primary_key=True, autoincrement=True)
-    title = Column(String(50))
-    description = Column(String(255))
+    title = Column(String(50), nullable=False)
+    description = Column(String(255), nullable=False)
 
     user_symptoms = relationship("User", back_populates="symptom")
 
@@ -191,8 +191,8 @@ class Activity(Base):
     __tablename__ = "activity"
 
     id = Column(Integer, primary_key=True, autoincrement=True)
-    category = Column(String(50))
-    name = Column(String(255))
+    category = Column(String(50), nullable=False)
+    name = Column(String(255), nullable=False)
 
     user_activities = relationship("UserActivity", back_populates="activity")
 
