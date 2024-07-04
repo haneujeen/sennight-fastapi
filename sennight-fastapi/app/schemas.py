@@ -224,39 +224,3 @@ class UserActivity(UserActivityBase):
 
     class Config:
         from_attributes = True
-
-
-class UserBase(BaseModel):
-    email: EmailStr
-    name: str
-
-
-class UserCreate(UserBase):
-    password: str
-
-
-class UserUpdate(UserBase):
-    name: Optional[str] = None
-    password: Optional[str] = None
-
-
-class UserLogin(UserBase):
-    name: Optional[str] = None
-    password: str
-
-
-class User(UserBase):
-    id: int
-    created_at: datetime
-    updated_at: datetime
-    deleted_at: Optional[datetime] = None
-    quit_logs: List[QuitLog] = []
-    smoking_logs: List[SmokingLog] = []
-    motivation: Optional[UserMotivation] = None
-    milestones: List[UserMilestone] = []
-    factors: List[UserFactor] = []
-    symptoms: List[UserSymptom] = []
-    activities: List[UserActivity] = []
-
-    class Config:
-        from_attributes = True
