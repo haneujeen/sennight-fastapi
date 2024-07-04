@@ -16,7 +16,7 @@ class User(Base):
     deleted_at = Column(DateTime, nullable=True)
 
     # Relationships
-    quit_logs = relationship("QuitLog", back_populates="user", cascade="all, delete-orphan")
+    quit_attempts = relationship("QuitAttempt", back_populates="user", cascade="all, delete-orphan")
     smoking_logs = relationship("SmokingLog", back_populates="user", cascade="all, delete-orphan")
     motivation = relationship("UserMotivation", back_populates="user", cascade="all, delete-orphan")
     milestones = relationship("UserMilestone", back_populates="user", cascade="all, delete-orphan")
@@ -29,8 +29,8 @@ class User(Base):
         self.deleted_at = func.now()
 
 
-class QuitLog(Base):
-    __tablename__ = "quit_log"
+class QuitAttempt(Base):
+    __tablename__ = "quit_attempt"
     id = Column(Integer, primary_key=True, autoincrement=True)
     user_id = Column(Integer, ForeignKey("user.id", ondelete="CASCADE"))
     start_date = Column(Date, nullable=True)
@@ -39,7 +39,7 @@ class QuitLog(Base):
     cigarette_price = Column(Float, nullable=True)
     is_active = Column(Boolean, default=True)
 
-    user = relationship("User", back_populates="quit_logs")
+    user = relationship("User", back_populates="quit_attempts")
 
 
 class SmokingLog(Base):
