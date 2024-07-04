@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, Date, Float, DateTime, func, ForeignKey, Boolean, UniqueConstraint, CheckConstraint
+from sqlalchemy import Column, Integer, String, Date, Float, DateTime, Time, func, ForeignKey, Boolean, UniqueConstraint, CheckConstraint
 from sqlalchemy.orm import relationship
 from datetime import datetime, timezone
 from .database import Base
@@ -16,6 +16,7 @@ class User(Base):
     deleted_at = Column(DateTime, nullable=True)
 
     # Relationships
+    smoking_habit = relationship("SmokingHabit", back_populates="user", uselist=False, cascade="all, delete-orphan")
     quit_attempts = relationship("QuitAttempt", back_populates="user", cascade="all, delete-orphan")
     smoking_logs = relationship("SmokingLog", back_populates="user", cascade="all, delete-orphan")
     motivation = relationship("UserMotivation", back_populates="user", cascade="all, delete-orphan")
@@ -28,16 +29,24 @@ class User(Base):
     def soft_delete(self):
         self.deleted_at = func.now()
 
+class SmokingHabit(Base):
+    __tablename__ = "smoking_habit"
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    user_id = Column(Integer, ForeignKey("user.id", ondelete="CASCADE"))
+    daily_cigarettes = Column(Integer)
+    cigarette_price = Column(Float)
+    first_cigarette = Column(Time)
+    smoking_years = Column(Integer)
+
+    user = relationship("User", back_populates="smoking_habit")
 
 class QuitAttempt(Base):
     __tablename__ = "quit_attempt"
     id = Column(Integer, primary_key=True, autoincrement=True)
     user_id = Column(Integer, ForeignKey("user.id", ondelete="CASCADE"))
-    start_date = Column(Date, nullable=True)
-    end_date = Column(Date, nullable=True)
-    daily_cigarettes = Column(Integer, nullable=True)
-    cigarette_price = Column(Float, nullable=True)
-    is_active = Column(Boolean, default=True)
+    start_date = Column(Date)
+    end_date = Column(Date)
+    is_active = Column(Boolean, nullable=False, default=True)
 
     user = relationship("User", back_populates="quit_attempts")
 
