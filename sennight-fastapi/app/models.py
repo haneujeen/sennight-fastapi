@@ -51,15 +51,6 @@ class QuitAttempt(Base):
     user = relationship("User", back_populates="quit_attempts")
 
 
-class Trigger(Base):
-    __tablename__ = "trigger"
-    id = Column(Integer, primary_key=True, autoincrement=True)
-    name = Column(String(50))
-    desc = Column(String(255))
-
-    smoking_logs = relationship("SmokingLog", back_populates="trigger", cascade="all, delete-orphan")
-
-
 class SmokingLog(Base):
     __tablename__ = "smoking_log"
     id = Column(Integer, primary_key=True, autoincrement=True)
@@ -71,6 +62,23 @@ class SmokingLog(Base):
 
     user = relationship("User", back_populates="smoking_logs")
     trigger = relationship("Trigger", back_populates="smoking_logs")
+
+
+class HealthBenefit(Base):
+    __tablename__ = "health_benefits"
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    time_interval = Column(String(50))
+    name = Column(String(50))
+    desc = Column(String(255))
+
+
+class Trigger(Base):
+    __tablename__ = "trigger"
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    name = Column(String(50))
+    desc = Column(String(255))
+
+    smoking_logs = relationship("SmokingLog", back_populates="trigger", cascade="all, delete-orphan")
 
 
 class Motivation(Base):
