@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, Date, Float, DateTime, func, ForeignKey, Boolean, UniqueConstraint
+from sqlalchemy import Column, Integer, String, Date, Float, DateTime, func, ForeignKey, Boolean, UniqueConstraint, CheckConstraint
 from sqlalchemy.orm import relationship
 from datetime import datetime, timezone
 from .database import Base
@@ -48,6 +48,8 @@ class SmokingLog(Base):
     user_id = Column(Integer, ForeignKey("user.id", ondelete="CASCADE"))
     cigarettes_smoked = Column(Integer, nullable=False)
     log_date = Column(Date, default=lambda: datetime.now(timezone.utc).date())
+    craving_level = Column(Integer, CheckConstraint('craving_level > 0 AND craving_level < 10'))
+    trigger_id = Column(Integer, ForeignKey("trigger.id", ondelete="CASCADE"))
 
     user = relationship("User", back_populates="smoking_logs")
 
