@@ -133,6 +133,7 @@ class MilestonePost(Base):
     id = Column(Integer, primary_key=True, autoincrement=True)
     user_id = Column(Integer, ForeignKey("user.id", ondelete="CASCADE"))
     user_milestone_id = Column(Integer, ForeignKey("user_milestone.id", ondelete="CASCADE"), unique=True)
+    content = Column(String(255), nullable=False)
     support_count = Column(Integer, default=0)
 
     user = relationship("User", back_populates="milestone_posts")
