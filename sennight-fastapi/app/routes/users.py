@@ -1,12 +1,13 @@
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
-from .. import schemas, crud, database, models, security
+from .. import crud, database, models, security
+from ..schemas import user_schemas
 
 router = APIRouter()
 
 
 @router.post("/users/register")
-async def register_user(user: schemas.UserCreate, db: Session = Depends(database.get_db)):
+async def register_user(user: user_schemas.UserCreate, db: Session = Depends(database.get_db)):
     db_user = db.query(models.User).filter(models.User.email == user.email).first()
     if db_user:
         raise HTTPException(status_code=400, detail="Email in use")
@@ -23,7 +24,7 @@ async def register_user(user: schemas.UserCreate, db: Session = Depends(database
 
 
 @router.post("/users")
-async def login_user(user: schemas.UserLogin, db: Session = Depends(database.get_db)):
+async def login_user(user: user_schemas.UserLogin, db: Session = Depends(database.get_db)):
     authenticated_user = crud.authenticate_user(db, user.email, user.password)
     if not authenticated_user:
         raise HTTPException(status_code=400, detail="Invalid email or password")
@@ -46,7 +47,7 @@ async def login_user(user: schemas.UserLogin, db: Session = Depends(database.get
 
 
 @router.patch("/users/{user_id}")
-async def update_user(user_id: int, user: schemas.UserUpdate, db: Session = Depends(database.get_db)):
+async def update_user(user_id: int, user: user_schemas.UserUpdate, db: Session = Depends(database.get_db)):
     db_user = crud.get_user(db, user_id)
     if not db_user:
         raise HTTPException(status_code=404, detail="User not found")
@@ -66,7 +67,7 @@ async def update_user(user_id: int, user: schemas.UserUpdate, db: Session = Depe
     }
 
 
-@router.get("/users/{user_id}", response_model=schemas.UserResponse)
+@router.get("/users/{user_id}", response_model=user_schemas.User)
 async def get_user(user_id: int, db: Session = Depends(database.get_db)):
     user = crud.get_user(db, user_id)
     if not user:
