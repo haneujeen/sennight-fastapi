@@ -18,13 +18,13 @@ class UserBase(BaseModel):
 
 class UserCreate(UserBase):
     password: str
-    photoFilename: Optional[str] = None
+    photo_filename: Optional[str] = None
 
 
 class UserUpdate(UserBase):
     name: Optional[str] = None
     password: Optional[str] = None
-    photoFilename: Optional[str] = None
+    photo_filename: Optional[str] = None
 
 
 class UserLogin(UserBase):
@@ -34,7 +34,7 @@ class UserLogin(UserBase):
 
 class User(UserBase):
     id: int
-    photo_filename: str
+    photo_filename: Optional[str] = None
     created_at: datetime
     updated_at: datetime
     deleted_at: Optional[datetime] = None
