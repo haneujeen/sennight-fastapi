@@ -2,13 +2,14 @@ from fastapi import FastAPI, HTTPException, Request
 from fastapi.responses import JSONResponse
 from jose import jwt, JWTError
 from .database import engine, Base
-from .routes import mock_apis
+from .routes import users, mock_apis
 from .config import settings
 
 Base.metadata.create_all(bind=engine)
 
 app = FastAPI()
 
+app.include_router(users.router)
 app.include_router(mock_apis.router)
 
 
