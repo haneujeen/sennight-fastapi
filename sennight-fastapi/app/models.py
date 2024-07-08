@@ -40,6 +40,7 @@ class SmokingHabit(Base):
 
     user = relationship("User", back_populates="smoking_habit")
 
+
 class QuitAttempt(Base):
     __tablename__ = "quit_attempt"
     id = Column(Integer, primary_key=True, autoincrement=True)
@@ -49,6 +50,8 @@ class QuitAttempt(Base):
     is_active = Column(Boolean, nullable=False, default=True)
 
     user = relationship("User", back_populates="quit_attempts")
+    user_milestones = relationship("UserMilestone", back_populates="quit_attempt")
+    milestone_posts = relationship("MilestonePost", back_populates="quit_attempt")
 
 
 class SmokingLog(Base):
@@ -120,11 +123,13 @@ class UserMilestone(Base):
     id = Column(Integer, primary_key=True, autoincrement=True)
     user_id = Column(Integer, ForeignKey("user.id", ondelete="CASCADE"))
     milestone_id = Column(Integer, ForeignKey("milestone.id", ondelete="CASCADE"))
+    quit_attempt_id = Column(Integer, ForeignKey("quit_attempt.id"))
     date_achieved = Column(DateTime, server_default=func.now())
 
     milestone = relationship("Milestone", back_populates="user_milestones")
     user = relationship("User", back_populates="milestones")
     milestone_post = relationship("MilestonePost", back_populates="user_milestone")
+    quit_attempt = relationship("QuitAttempt", back_populates="user_milestones")
 
 
 class MilestonePost(Base):
@@ -133,11 +138,13 @@ class MilestonePost(Base):
     id = Column(Integer, primary_key=True, autoincrement=True)
     user_id = Column(Integer, ForeignKey("user.id", ondelete="CASCADE"))
     user_milestone_id = Column(Integer, ForeignKey("user_milestone.id", ondelete="CASCADE"), unique=True)
+    quit_attempt_id = Column(Integer, ForeignKey("quit_attempt.id"))
     content = Column(String(255), nullable=False)
     support_count = Column(Integer, default=0)
 
     user = relationship("User", back_populates="milestone_posts")
     user_milestone = relationship("UserMilestone", back_populates="milestone_post")
+    quit_attempt = relationship("QuitAttempt", back_populates="milestone_posts")
 
 
 class AidProduct(Base):
