@@ -26,18 +26,18 @@ class Milestone(MilestoneBase):
 
 # UserMilestone schemas
 class UserMilestoneBase(BaseModel):
+    user_id: int
+    milestone_id: int
+    quit_attempt_id: int
     date_achieved: Optional[datetime] = None
 
 
 class UserMilestoneCreate(UserMilestoneBase):
-    user_id: int
-    milestone_id: int
+    pass
 
 
 class UserMilestone(UserMilestoneBase):
     id: int
-    user_id: int
-    milestone_id: int
     milestone: Milestone
 
     class Config:

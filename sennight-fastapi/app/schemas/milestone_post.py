@@ -5,6 +5,7 @@ from typing import Optional
 class MilestonePostBase(BaseModel):
     user_id: int
     user_milestone_id: int
+    quit_attempt_id: int
     content: str
     support_count: Optional[int] = 0
 
