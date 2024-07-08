@@ -154,7 +154,7 @@ class AidProduct(Base):
     category = Column(String(50), nullable=False)
     name = Column(String(50), nullable=False)
 
-    user_aid_products = relationship("UserFactor", back_populates="factor")
+    user_aid_products = relationship("UserAidProduct", back_populates="aid_product")
 
 
 class UserAidProduct(Base):
@@ -166,7 +166,7 @@ class UserAidProduct(Base):
     start_date = Column(Date, nullable=False)
     end_date = Column(Date)
 
-    factor = relationship("AidProduct", back_populates="user_aid_products")
+    aid_product = relationship("AidProduct", back_populates="user_aid_products")
     user = relationship("User", back_populates="aid_products")
 
     __table_args__ = (UniqueConstraint('user_id', 'aid_product_id', name='_user_aid_product_uc'),)
