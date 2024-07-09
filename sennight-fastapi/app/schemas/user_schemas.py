@@ -1,7 +1,7 @@
 from datetime import datetime
 from typing import List, Optional
 from pydantic import BaseModel, EmailStr
-from .smoking_habit import SmokingHabit
+from .smoking_habit_schemas import SmokingHabit
 from .quit_attempt import QuitAttempt
 from .smoking_log import SmokingLog
 from .motivation import UserMotivation

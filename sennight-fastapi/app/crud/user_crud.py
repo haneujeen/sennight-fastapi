@@ -1,10 +1,11 @@
 from fastapi import HTTPException
 from sqlalchemy.orm import Session
-from datetime import datetime, date
+from datetime import datetime
 from .. import models, security
 from ..schemas import user_schemas
 
 
+# TODO: Update functions with .model_dump()
 def create(db: Session, user: user_schemas.UserCreate):
     db_user = db.query(models.User).filter(models.User.email == user.email).first()
     if db_user:
