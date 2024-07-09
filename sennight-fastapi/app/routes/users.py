@@ -33,6 +33,7 @@ async def login(user: user_schemas.UserLogin, db: Session = Depends(database.get
         "status": True,
         "detail": "Login successful",
         "data": {
+            "id": authenticated_user.id,
             "email": authenticated_user.email,
             "name": authenticated_user.name,
             "access_token": access_token
