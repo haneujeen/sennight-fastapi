@@ -17,7 +17,6 @@ app.include_router(mock_apis.router)
 async def jwt_middleware(request: Request, call_next):
     if request.method == "POST" and request.url.path.startswith("/mock"):
         return await call_next(request)
-
     authorization: str = request.headers.get("Authorization")
     if authorization is None or not authorization.startswith("Bearer "):
         return JSONResponse(
@@ -27,13 +26,16 @@ async def jwt_middleware(request: Request, call_next):
 
     token = authorization[7:]
     try:
-        jwt.decode(token, settings.SECRET_KEY, algorithms=[settings.ALGORITHM])
-    except JWTError:
+        payload = jwt.decode(token, settings.SECRET_KEY, algorithms=[settings.ALGORITHM])
+        user_id = payload.get("sub")
+        if user_id is None:
+            raise JWTError()
+        request.state.user_id = user_id
+    except JWTError as e:
         return JSONResponse(
             status_code=401,
             content={"status": False, "detail": "Invalid token", "data": None}
         )
-
     return await call_next(request)
 
 
