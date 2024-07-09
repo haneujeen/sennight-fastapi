@@ -1,13 +1,10 @@
-from fastapi import APIRouter, Depends, Request
-from sqlalchemy.orm import Session
-from .. import database, security
-from ..schemas import smoking_habit_schemas
-from ..crud import user_crud, smoking_habit_crud
-
-router = APIRouter()
-
-
 """
+
+    /smoking-habits
+    ├── POST /
+    ├── GET /{userID}
+    └── PUT /{habitID}
+
     ------------------------------
     |       smoking_habit        |
     ------------------------------
@@ -18,7 +15,16 @@ router = APIRouter()
     | first_cigarette  | Time    |
     | smoking_years    | Integer |
     ------------------------------
+
 """
+
+from fastapi import APIRouter, Depends, Request
+from sqlalchemy.orm import Session
+from .. import database
+from ..schemas import smoking_habit_schemas
+from ..crud import smoking_habit_crud
+
+router = APIRouter()
 
 
 @router.post("/smoking-habits")
@@ -32,7 +38,7 @@ def create(
 
     return {
         "status": True,
-        "detail": "Smoking habit registered successfully",
+        "detail": "Smoking habit created successfully",
         "data": {
             "user_id": new_habit.user_id
         }
@@ -47,6 +53,7 @@ async def read(user_id: int, db: Session = Depends(database.get_db)):
         "status": True,
         "detail": "",
         "data": {
+            "id": smoking_habit.id,
             "user_id": smoking_habit.user_id,
             "daily_cigarettes": smoking_habit.daily_cigarettes,
             "cigarette_price": smoking_habit.cigarette_price,
