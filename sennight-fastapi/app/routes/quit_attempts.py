@@ -23,7 +23,7 @@
 
 from fastapi import APIRouter, Depends, Request
 from sqlalchemy.orm import Session
-from .. import database, security
+from .. import database
 from ..schemas import quit_attempt_schemas, milestone_schemas
 from ..crud import quit_attempt_crud
 from typing import List
@@ -101,7 +101,7 @@ async def delete(attempt_id: int, db: Session = Depends(database.get_db)):
     quit_attempt = quit_attempt_crud.delete(db, attempt_id)
     return {
         "status": True,
-        "detail": "User deleted successfully",
+        "detail": "Quit attempt deleted successfully",
         "data": {
             "user_id": quit_attempt.user_id
         }
@@ -113,7 +113,7 @@ async def read_milestones(attempt_id: int, db: Session = Depends(database.get_db
     milestones = quit_attempt_crud.read_milestones(db, attempt_id)
     return {
         "status": True,
-        "detail": "Login successful",
+        "detail": "",
         "data": {
             "milestones": milestones
         }
