@@ -2,13 +2,13 @@ from datetime import datetime
 from typing import List, Optional
 from pydantic import BaseModel, EmailStr
 from .smoking_habit_schemas import SmokingHabit
-from .quit_attempt import QuitAttempt
-from .smoking_log import SmokingLog
-from .motivation import UserMotivation
-from .milestone import UserMilestone
-from .aid_product import UserAidProduct
-from .symptom import UserSymptom
-from .activity import UserActivity
+from .quit_attempt_schemas import QuitAttempt
+from .smoking_log_schemas import SmokingLog
+from .motivation_schemas import UserMotivation
+from .milestone_schemas import UserMilestone
+from .aid_product_schemas import UserAidProduct
+from .symptom_schemas import UserSymptom
+from .activity_schemas import UserActivity
 
 
 class UserBase(BaseModel):
