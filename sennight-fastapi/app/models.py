@@ -116,7 +116,7 @@ class Milestone(Base):
     title = Column(String(50), nullable=False)
     content = Column(String(255), nullable=False)
 
-    user_milestones = relationship("UserMilestones", back_populates="milestone")
+    user_milestones = relationship("UserMilestone", back_populates="milestone")
 
 
 class UserMilestone(Base):
@@ -183,7 +183,7 @@ class Symptom(Base):
     title = Column(String(50), nullable=False)
     description = Column(String(255), nullable=False)
 
-    user_symptoms = relationship("User", back_populates="symptom")
+    user_symptoms = relationship("UserSymptom", back_populates="symptom")
 
 
 class UserSymptom(Base):
