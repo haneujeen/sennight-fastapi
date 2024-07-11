@@ -30,6 +30,7 @@ class User(Base):
     def soft_delete(self):
         self.deleted_at = func.now()
 
+
 class SmokingHabit(Base):
     __tablename__ = "smoking_habit"
     id = Column(Integer, primary_key=True, autoincrement=True)
