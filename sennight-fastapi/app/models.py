@@ -143,6 +143,8 @@ class MilestonePost(Base):
     quit_attempt_id = Column(Integer, ForeignKey("quit_attempt.id"))
     content = Column(String(255), nullable=False)
     support_count = Column(Integer, default=0)
+    created_at = Column(DateTime, server_default=func.now())
+    updated_at = Column(DateTime, server_default=func.now(), onupdate=func.now())
 
     user = relationship("User", back_populates="milestone_posts")
     user_milestone = relationship("UserMilestone", back_populates="milestone_post")
