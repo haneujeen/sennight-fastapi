@@ -1,5 +1,4 @@
 from sqlalchemy.orm import Session
-from fastapi import HTTPException
 from .. import models
 from ..schemas import milestone_schemas
 
