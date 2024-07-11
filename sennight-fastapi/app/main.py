@@ -2,7 +2,9 @@ from fastapi import FastAPI, HTTPException, Request
 from fastapi.responses import JSONResponse
 from jose import jwt, JWTError
 from .database import engine, Base
-from .routes import users, mock_apis
+from .routes import users, smoking_habits, quit_attempts, smoking_logs, \
+    health_benefits, triggers, motivations, milestones, aid_products, symptoms, activities, \
+    user_motivations, user_milestones, user_aid_products, user_symptoms, user_activities, milestone_posts
 from .config import settings
 
 Base.metadata.create_all(bind=engine)
@@ -10,7 +12,6 @@ Base.metadata.create_all(bind=engine)
 app = FastAPI()
 
 app.include_router(users.router)
-app.include_router(mock_apis.router)
 
 
 @app.middleware("http")
