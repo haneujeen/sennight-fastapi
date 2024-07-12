@@ -1,14 +1,14 @@
 """
 
-    /milestones
+    /triggers
     └── GET /
 
     -------------------------
-    |      milestones      |
+    |       triggers        |
     -------------------------
     | id          | Integer |
-    | title       | String  |
-    | content     | String  |
+    | name        | String  |
+    | desc        | String  |
     -------------------------
 
 """
@@ -16,18 +16,18 @@
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 from .. import database
-from ..schemas import milestone_schemas
-from ..crud import milestone_crud
+from ..schemas import trigger_schemas
+from ..crud import trigger_crud
 from typing import List
 
 router = APIRouter()
 
 
-@router.get("/milestones", response_model=List[milestone_schemas.Milestone])
+@router.get("/triggers", response_model=List[trigger_schemas.Trigger])
 async def read(db: Session = Depends(database.get_db)):
-    milestones = milestone_crud.read(db)
+    triggers = trigger_crud.read(db)
     return {
         "status": True,
         "detail": "",
-        "data": milestones
+        "data": triggers
     }
