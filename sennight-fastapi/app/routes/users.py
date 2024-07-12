@@ -1,8 +1,16 @@
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, File, UploadFile
 from sqlalchemy.orm import Session
 from .. import database, security
 from ..schemas import user_schemas
 from ..crud import user_crud
+import os
+from uuid import uuid4
+
+# Define the directory where images will be stored
+UPLOAD_DIRECTORY = "files/photos"
+
+if not os.path.exists(UPLOAD_DIRECTORY):
+    os.makedirs(UPLOAD_DIRECTORY)
 
 router = APIRouter()
 
@@ -36,6 +44,33 @@ async def login(user: user_schemas.UserLogin, db: Session = Depends(database.get
             "email": authenticated_user.email,
             "name": authenticated_user.name,
             "access_token": access_token
+        }
+    }
+
+
+@router.post("/{user_id}/photo")
+async def upload_photo(user_id: int, file: UploadFile = File(...), db: Session = Depends(database.get_db)):
+    user = user_crud.read(db, user_id)
+
+    # Generate a unique filename
+    file_extension = file.filename.split(".")[-1]
+    unique_filename = f"{uuid4()}.{file_extension}"
+    file_path = os.path.join(UPLOAD_DIRECTORY, unique_filename)
+
+    # Save the file to the files/photos directory
+    with open(file_path, "wb") as f:
+        f.write(await file.read())
+
+    # Update the user record
+    user.photo_filename = unique_filename
+    db.commit()
+
+    return {
+        "status": True,
+        "detail": "Photo uploaded successfully",
+        "data": {
+            "user_id": user.id,
+            "photo_filename": unique_filename
         }
     }
 
