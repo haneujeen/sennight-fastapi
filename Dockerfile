@@ -1,16 +1,15 @@
-FROM python:3.12.4
+# syntax=docker/dockerfile:1
 
-WORKDIR /app
+FROM python:3.12
 
-COPY requirements.txt /app
+WORKDIR /code
 
-RUN pip install --no-cache-dir -r requirements.txt
+COPY requirements.txt .
 
-COPY . /app
+RUN pip install --no-cache-dir --upgrade -r requirements.txt
 
-EXPOSE 8000
+COPY . .
 
-ENV HOST=0.0.0.0
-ENV PORT=8000
+EXPOSE 3100
 
-CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]
+CMD ["gunicorn", "main:app"]
