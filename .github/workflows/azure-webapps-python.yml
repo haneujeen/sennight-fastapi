@@ -5,13 +5,13 @@ env:
   ACR_NAME: sennight
   RESOURCE_GROUP: sennightResourceGroup
   IMAGE_NAME: sennight-fastapi
-  IMAGE_TAG: v0.0.3
+  IMAGE_TAG: updated_tag
   PYTHON_VERSION: '3.12'              # set this to the Python version to use
 
 on:
   push:
     branches:
-      - main
+      - deployment
   workflow_dispatch:
 
 jobs:
@@ -50,10 +50,12 @@ jobs:
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
           
-      - name: 'Deploy to Azure Web App'
+      - name: Deploy to Azure Web App
         run: |
-          az webapp update \
-            --resource-group ${{ env.RESOURCE_GROUP }} \
+          az webapp config container set \
             --name ${{ env.AZURE_WEBAPP_NAME }} \
-            --set siteConfig.appSettings[0].name=DOCKER_CUSTOM_IMAGE_NAME \
-            --set siteConfig.appSettings[0].value=${{ env.ACR_NAME }}.azurecr.io/${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }}
+            --resource-group ${{ env.RESOURCE_GROUP }} \
+            --container-image-name ${{ env.ACR_NAME }}.azurecr.io/${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }} \
+            --container-registry-url https://${{ env.ACR_NAME }}.azurecr.io \
+            --container-registry-user ${{ secrets.ACR_USERNAME }} \
+            --container-registry-password ${{ secrets.ACR_PASSWORD }}
