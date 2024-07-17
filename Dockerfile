@@ -10,6 +10,8 @@ RUN pip install --no-cache-dir --upgrade -r requirements.txt
 
 COPY . .
 
+COPY .env .env
+
 EXPOSE 3100
 
 CMD ["gunicorn", "app.main:app"]
