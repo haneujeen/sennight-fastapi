@@ -31,6 +31,7 @@ env:
   ACR_NAME: sennight
   RESOURCE_GROUP: sennightResourceGroup
   IMAGE_NAME: sennight-fastapi
+  IMAGE_TAG: v0.0.3
 
 on:
   push:
@@ -58,8 +59,8 @@ jobs:
 
       - name: Build and push container image to Docker Hub
         run: |
-          docker build --tag gksdbwls/sennight-fastapi:v0.0.3 .
-          docker push gksdbwls/sennight-fastapi:v0.0.3
+          docker build --tag gksdbwls/sennight-fastapi:${{ env.IMAGE_TAG }} .
+          docker push gksdbwls/sennight-fastapi:${{ env.IMAGE_TAG }}
 
       - name: Azure CLI Login
         uses: azure/login@v1
@@ -75,7 +76,7 @@ jobs:
 
       - name: Build and push Docker image to Azure Container Registry
         run: |
-          az acr build --registry ${{ env.ACR_NAME }} --resource-group ${{ env.RESOURCE_GROUP }} --image ${{ env.IMAGE_NAME }}:${{ github.sha }} .
+          az acr build --registry ${{ env.ACR_NAME }} --resource-group ${{ env.RESOURCE_GROUP }} --image ${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }} .
 
       - name: Azure CLI Login
         uses: azure/login@v1
@@ -101,9 +102,13 @@ jobs:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
 
       - name: Deploy to Azure Web App
-        id: deploy-to-webapp
-        uses: azure/webapps-deploy@v2
-        with:
-          app-name: ${{ env.AZURE_WEBAPP_NAME }}
-          publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
-          images: ${{ env.ACR_NAME }}.azurecr.io/${{ env.IMAGE_NAME }}:${{ github.sha }}
+        run: |
+          az webapp config container set \
+            --name ${{ env.AZURE_WEBAPP_NAME }} \
+            --resource-group ${{ env.RESOURCE_GROUP }} \
+            --docker-custom-image-name ${{ env.ACR_NAME }}.azurecr.io/${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }} \
+            --docker-registry-server-url https://${{ env.ACR_NAME }}.azurecr.io \
+            --docker-registry-server-user ${{ secrets.ACR_USERNAME }} \
+            --docker-registry-server-password ${{ secrets.ACR_PASSWORD }}
+          
+          az webapp restart --name ${{ env.AZURE_WEBAPP_NAME }} --resource-group ${{ env.RESOURCE_GROUP }}
