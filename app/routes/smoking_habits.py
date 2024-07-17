@@ -18,7 +18,7 @@
 
 """
 
-from fastapi import APIRouter, Depends, Request
+from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 from .. import database
 from ..schemas import smoking_habit_schemas
@@ -30,11 +30,9 @@ router = APIRouter()
 @router.post("/smoking-habits")
 def create(
         smoking_habit: smoking_habit_schemas.SmokingHabitCreate,
-        request: Request,
         db: Session = Depends(database.get_db)
 ):
-    user_id = request.state.user_id
-    new_habit = smoking_habit_crud.create(db, user_id, smoking_habit)
+    new_habit = smoking_habit_crud.create(db, smoking_habit)
 
     return {
         "status": True,

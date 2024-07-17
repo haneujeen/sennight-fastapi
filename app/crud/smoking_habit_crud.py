@@ -6,13 +6,13 @@ from ..schemas import smoking_habit_schemas
 
 
 # TODO: Update functions with .model_dump()
-def create(db: Session, user_id: int, smoking_habit: smoking_habit_schemas.SmokingHabitCreate):
-    db_habit = db.query(models.SmokingHabit).filter(models.SmokingHabit.user_id == user_id).first()
+def create(db: Session, smoking_habit: smoking_habit_schemas.SmokingHabitCreate):
+    db_habit = db.query(models.SmokingHabit).filter(models.SmokingHabit.user_id == smoking_habit.user_id).first()
     if db_habit:
         raise HTTPException(status_code=400, detail="Smoking habit already exists")
 
     db_habit = models.SmokingHabit(
-        user_id=user_id,
+        user_id=smoking_habit.user_id,
         daily_cigarettes=smoking_habit.daily_cigarettes,
         cigarette_price=smoking_habit.cigarette_price,
         first_cigarette=smoking_habit.first_cigarette,

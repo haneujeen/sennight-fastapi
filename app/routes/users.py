@@ -23,6 +23,7 @@ async def register(user: user_schemas.UserCreate, db: Session = Depends(database
         "status": True,
         "detail": "User registered successfully",
         "data": {
+            "id": new_user.id,
             "email": new_user.email,
             "name": new_user.name,
             "photo_filename": new_user.photo_filename,
