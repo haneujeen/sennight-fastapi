@@ -5,7 +5,7 @@ env:
   ACR_NAME: sennight
   RESOURCE_GROUP: sennightResourceGroup
   IMAGE_NAME: sennight-fastapi
-  IMAGE_TAG: v0.0.4
+  IMAGE_TAG: v0.0.3
   PYTHON_VERSION: '3.12'              # set this to the Python version to use
 
 on:
@@ -31,12 +31,6 @@ jobs:
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-      - name: Set up Docker Buildx
-        run: |
-          docker run --rm --privileged multiarch/qemu-user-static --reset -p yes
-          docker buildx create --name mybuilder --use
-          docker buildx inspect --bootstrap
-
       - name: Create .env file
         run: |
           echo "SECRET_KEY=${{ secrets.SECRET_KEY }}" >> .env
@@ -46,9 +40,10 @@ jobs:
 
       - name: Build Docker image
         run: |
-          docker buildx build --platform linux/amd64,linux/arm64 \
-            --push \
-            --tag ${{ env.ACR_NAME }}.azurecr.io/${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }} .
+          az acr build \
+            --resource-group ${{ env.RESOURCE_GROUP }} \
+            --registry ${{ env.ACR_NAME }} \
+            --image ${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }} .
 
   deploy:
     runs-on: ubuntu-latest
