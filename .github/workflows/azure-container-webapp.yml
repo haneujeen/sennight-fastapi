@@ -72,7 +72,7 @@ jobs:
 
       - name: Build and push Docker image to Azure Container Registry
         run: |
-          docker buildx build --push --platform linux/amd64,linux/arm64 -t ${{ env.ACR_NAME }}.azurecr.io/${{ env.IMAGE_NAME }}:${{ github.sha }} .
+          az acr build --registry ${{ env.ACR_NAME }} --resource-group ${{ env.RESOURCE_GROUP }} --image ${{ env.IMAGE_NAME }}:${{ github.sha }} .
 
       - name: Azure CLI Login
         uses: azure/login@v1
@@ -102,4 +102,5 @@ jobs:
         uses: azure/webapps-deploy@v2
         with:
           app-name: ${{ env.AZURE_WEBAPP_NAME }}
+          publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
           images: ${{ env.ACR_NAME }}.azurecr.io/${{ env.IMAGE_NAME }}:${{ github.sha }}
