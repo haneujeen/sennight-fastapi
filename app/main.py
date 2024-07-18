@@ -32,11 +32,17 @@ app.include_router(milestone_posts.router)
 
 @app.middleware("http")
 async def jwt_middleware(request: Request, call_next):
-    if request.url.path.startswith("/docs") or request.url.path.startswith("/openapi.json"):
+    public_get_paths = ["/docs", "/openapi.json"]
+    public_post_paths = ["/users", "/smoking-habits", "/quit-attempts", "/user-motivations"]
+
+    if request.method == "GET" and request.url.path.startswith(tuple(public_get_paths)):
         return await call_next(request)
-    if request.method == "POST" and request.url.path.startswith("/users"):
+
+    if request.method == "POST" and request.url.path.startswith(tuple(public_post_paths)):
         return await call_next(request)
+
     authorization: str = request.headers.get("Authorization")
+
     if authorization is None or not authorization.startswith("Bearer "):
         return JSONResponse(
             status_code=401,
@@ -44,6 +50,7 @@ async def jwt_middleware(request: Request, call_next):
         )
 
     token = authorization[7:]
+
     try:
         payload = jwt.decode(token, settings.SECRET_KEY, algorithms=[settings.ALGORITHM])
         user_id = payload.get("sub")
@@ -55,6 +62,7 @@ async def jwt_middleware(request: Request, call_next):
             status_code=401,
             content={"status": False, "detail": "Invalid token", "data": None}
         )
+
     return await call_next(request)
 
 
