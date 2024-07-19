@@ -4,8 +4,8 @@ from ..schemas import quit_attempt_schemas
 from .. import models
 
 
-def create(db: Session, user_id: int, quit_attempt: quit_attempt_schemas.QuitAttemptCreate):
-    db_quit_attempt = models.QuitAttempt(**quit_attempt.model_dump(), user_id=user_id)
+def create(db: Session, quit_attempt: quit_attempt_schemas.QuitAttemptCreate):
+    db_quit_attempt = models.QuitAttempt(**quit_attempt.model_dump())
     db.add(db_quit_attempt)
     db.commit()
     db.refresh(db_quit_attempt)
