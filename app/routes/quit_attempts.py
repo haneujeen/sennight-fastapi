@@ -34,11 +34,9 @@ router = APIRouter()
 @router.post("/quit-attempts")
 async def create(
         quit_attempt: quit_attempt_schemas.QuitAttemptCreate,
-        request: Request,
         db: Session = Depends(database.get_db)
 ):
-    user_id = request.state.user_id
-    new_quit_attempt = quit_attempt_crud.create(db, user_id, quit_attempt)
+    new_quit_attempt = quit_attempt_crud.create(db, quit_attempt)
 
     return {
         "status": True,

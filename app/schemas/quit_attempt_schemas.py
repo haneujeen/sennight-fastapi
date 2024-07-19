@@ -1,11 +1,12 @@
 from pydantic import BaseModel
-from datetime import date
+from datetime import datetime
 from typing import Optional
 
 
 class QuitAttemptBase(BaseModel):
-    start_date: date
-    end_date: Optional[date] = None
+    user_id: int
+    start_date: datetime
+    end_date: Optional[datetime] = None
     is_active: bool = True
 
 
@@ -19,7 +20,6 @@ class QuitAttemptUpdate(QuitAttemptBase):
 
 class QuitAttempt(QuitAttemptBase):
     id: int
-    user_id: int
 
     class Config:
         from_attributes = True
