@@ -18,6 +18,7 @@ router = APIRouter()
 @router.post("/register")
 async def register(user: user_schemas.UserCreate, db: Session = Depends(database.get_db)):
     new_user = user_crud.create(db, user)
+    onboarding_token = security.create_access_token(data={"sub": str(new_user.id)})
 
     return {
         "status": True,
@@ -27,7 +28,8 @@ async def register(user: user_schemas.UserCreate, db: Session = Depends(database
             "email": new_user.email,
             "name": new_user.name,
             "photo_filename": new_user.photo_filename,
-            "created_at": new_user.created_at
+            "created_at": new_user.created_at,
+            "access_token": onboarding_token
         }
     }
 

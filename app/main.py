@@ -32,13 +32,10 @@ app.include_router(milestone_posts.router)
 
 @app.middleware("http")
 async def jwt_middleware(request: Request, call_next):
-    public_get_paths = ["/docs", "/openapi.json"]
-    public_post_paths = ["/users", "/smoking-habits", "/quit-attempts", "/user-motivations"]
-
-    if request.method == "GET" and request.url.path.startswith(tuple(public_get_paths)):
+    if request.url.path.startswith("/docs") or request.url.path.startswith("/openapi.json"):
         return await call_next(request)
 
-    if request.method == "POST" and request.url.path.startswith(tuple(public_post_paths)):
+    if request.method == "POST" and request.url.path.startswith("/users"):
         return await call_next(request)
 
     authorization: str = request.headers.get("Authorization")
