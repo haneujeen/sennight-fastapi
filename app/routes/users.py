@@ -29,7 +29,7 @@ async def register(user: user_schemas.UserCreate, db: Session = Depends(database
             "name": new_user.name,
             "photo_filename": new_user.photo_filename,
             "created_at": new_user.created_at,
-            "access_token": onboarding_token
+            "onboarding_token": onboarding_token
         }
     }
 
