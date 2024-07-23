@@ -113,8 +113,8 @@ class Milestone(Base):
     __tablename__ = "milestone"
 
     id = Column(Integer, primary_key=True, autoincrement=True)
-    title = Column(String(50), nullable=False)
-    content = Column(String(255), nullable=False)
+    days = Column(Integer, nullable=False)
+    message = Column(String(255), nullable=False)
 
     user_milestones = relationship("UserMilestone", back_populates="milestone")
 
