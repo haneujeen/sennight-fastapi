@@ -2,7 +2,7 @@ name: Build Docker image
 
 env:
   IMAGE_NAME: sennight-fastapi
-  IMAGE_TAG: v0.0.4
+  IMAGE_TAG: v0.1.2
   PYTHON_VERSION: '3.12'
 
 on:

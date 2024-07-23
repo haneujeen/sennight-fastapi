@@ -12,4 +12,8 @@ COPY . .
 
 EXPOSE 3100
 
+LABEL version="0.1.2" \
+      description="Update JSON response format from /quit-attempts POST/DELETE requests" \
+      maintainer="한유진 <eujeenhan@gmail.com>"
+
 CMD ["gunicorn", "app.main:app"]
