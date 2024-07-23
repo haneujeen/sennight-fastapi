@@ -25,6 +25,7 @@ from typing import List
 router = APIRouter()
 
 
+# TODO: Update route names...
 @router.post("/user-milestones")
 async def create(
         user_milestone: milestone_schemas.UserMilestoneCreate,

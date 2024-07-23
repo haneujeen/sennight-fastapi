@@ -29,8 +29,7 @@ class UserMilestoneBase(BaseModel):
     user_id: int
     milestone_id: int
     quit_attempt_id: int
-    date_achieved: Optional[datetime] = None
-
+    
 
 class UserMilestoneCreate(UserMilestoneBase):
     pass
@@ -39,6 +38,7 @@ class UserMilestoneCreate(UserMilestoneBase):
 class UserMilestone(UserMilestoneBase):
     id: int
     milestone: Milestone
+    date_achieved: datetime
 
     class Config:
         from_attributes = True
