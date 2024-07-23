@@ -12,4 +12,8 @@ COPY . .
 
 EXPOSE 3100
 
+LABEL version="0.1.1" \
+      description="Backend server for iOS application Sennight" \
+      maintainer="Your Name <your.email@example.com>"
+
 CMD ["gunicorn", "app.main:app"]
