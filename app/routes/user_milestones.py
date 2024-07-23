@@ -25,14 +25,13 @@ from typing import List
 router = APIRouter()
 
 
+# TODO: Update route names...
 @router.post("/user-milestones")
 async def create(
         user_milestone: milestone_schemas.UserMilestoneCreate,
-        request: Request,
         db: Session = Depends(database.get_db)
 ):
-    user_id = request.state.user_id
-    new_user_milestone = user_milestone_crud.create(db, user_id, user_milestone)
+    new_user_milestone = user_milestone_crud.create(db, user_milestone)
 
     return {
         "status": True,
