@@ -7,8 +7,8 @@
     |      milestones      |
     -------------------------
     | id          | Integer |
-    | title       | String  |
-    | content     | String  |
+    | days        | Integer |
+    | message     | String  |
     -------------------------
 
 """

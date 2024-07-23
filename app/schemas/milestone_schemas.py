@@ -5,8 +5,8 @@ from typing import Optional
 
 # Milestone schemas
 class MilestoneBase(BaseModel):
-    title: str
-    content: str
+    days: int
+    message: str
 
 
 class MilestoneCreate(MilestoneBase):
