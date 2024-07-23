@@ -41,9 +41,7 @@ async def create(
     return {
         "status": True,
         "detail": "Quit attempt created successfully",
-        "data": {
-            "user_id": new_quit_attempt.user_id
-        }
+        "data": new_quit_attempt
     }
 
 
@@ -86,13 +84,11 @@ async def update(
 
 @router.delete("/quit-attempts/{attempt_id}")
 async def delete(attempt_id: int, db: Session = Depends(database.get_db)):
-    quit_attempt = quit_attempt_crud.delete(db, attempt_id)
+    deleted_quit_attempt = quit_attempt_crud.delete(db, attempt_id)
     return {
         "status": True,
         "detail": "Quit attempt deleted successfully",
-        "data": {
-            "user_id": quit_attempt.user_id
-        }
+        "data": deleted_quit_attempt
     }
 
 
