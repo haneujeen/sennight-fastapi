@@ -4,8 +4,14 @@ from .. import models
 from ..schemas import motivation_schemas
 
 
-def create(db: Session, user_id: int, user_motivation: motivation_schemas.UserMotivationCreate):
-    db_user_motivation = models.UserMotivation(**user_motivation.model_dump(), user_id=user_id)
+def create(db: Session,user_motivation: motivation_schemas.UserMotivationCreate):
+    existing_user_motivation = (db
+                                .query(models.UserMotivation)
+                                .filter(models.UserMotivation.user_id == user_motivation.user_id)
+                                .first())
+    if existing_user_motivation:
+        delete(db, existing_user_motivation.id)
+    db_user_motivation = models.UserMotivation(**user_motivation.model_dump())
     db.add(db_user_motivation)
     db.commit()
     db.refresh(db_user_motivation)
@@ -16,6 +22,7 @@ def read(db: Session, user_id: int):
     return db.query(models.UserMotivation).filter(models.UserMotivation.user_id == user_id).first()
 
 
+# TODO: update 메서드 삭제
 def update(db: Session, user_motivation_id: int, user_motivation: motivation_schemas.UserMotivationUpdate):
     db_user_motivation = db.query(models.UserMotivation).filter(models.UserMotivation.id == user_motivation_id).first()
     if not db_user_motivation:

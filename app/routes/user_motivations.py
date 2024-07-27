@@ -28,11 +28,9 @@ router = APIRouter()
 @router.post("/user-motivations")
 async def create(
         user_motivation: motivation_schemas.UserMotivationCreate,
-        request: Request,
         db: Session = Depends(database.get_db)
 ):
-    user_id = request.state.user_id
-    new_user_motivation = user_motivation_crud.create(db, user_id, user_motivation)
+    new_user_motivation = user_motivation_crud.create(db, user_motivation)
 
     return {
         "status": True,
