@@ -27,11 +27,9 @@ router = APIRouter()
 @router.post("/user-symptoms")
 async def create(
         user_symptom: symptom_schemas.UserSymptomCreate,
-        request: Request,
         db: Session = Depends(database.get_db)
 ):
-    user_id = request.state.user_id
-    new_user_symptom = user_symptom_crud.create(db, user_id, user_symptom)
+    new_user_symptom = user_symptom_crud.create(db, user_symptom)
 
     return {
         "status": True,

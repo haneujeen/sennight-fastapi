@@ -29,10 +29,8 @@ router = APIRouter()
 @router.post("/user-aid-products")
 async def create(
         user_aid_product: aid_product_schemas.UserAidProductCreate,
-        request: Request,
         db: Session = Depends(database.get_db)
 ):
-    user_id = request.state.user_id
     new_user_aid_product = user_aid_product_crud.create(db, user_aid_product)
 
     return {
