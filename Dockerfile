@@ -12,8 +12,8 @@ COPY . .
 
 EXPOSE 3100
 
-LABEL version="0.1.3" \
-      description="Fix not being able to create user's custom motivation" \
+LABEL version="0.1.4" \
+      description="Fix extra argument user_id error" \
       maintainer="한유진 <eujeenhan@gmail.com>"
 
 CMD ["gunicorn", "app.main:app"]
