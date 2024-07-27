@@ -12,7 +12,7 @@ COPY . .
 
 EXPOSE 3100
 
-LABEL version="0.1.4" \
+LABEL version="0.1.5" \
       description="Fix extra argument user_id error" \
       maintainer="한유진 <eujeenhan@gmail.com>"
 

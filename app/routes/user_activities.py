@@ -31,7 +31,7 @@ async def create(
         db: Session = Depends(database.get_db)
 ):
     user_id = request.state.user_id
-    new_user_activity = user_activity_crud.create(db, user_id, user_activity)
+    new_user_activity = user_activity_crud.create(db, user_activity)
 
     return {
         "status": True,

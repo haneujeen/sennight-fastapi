@@ -4,8 +4,8 @@ from .. import models
 from ..schemas import symptom_schemas
 
 
-def create(db: Session, user_id: int, user_symptom: symptom_schemas.UserSymptomCreate):
-    db_user_symptom = models.UserSymptom(**user_symptom.model_dump(), user_id=user_id)
+def create(db: Session, user_symptom: symptom_schemas.UserSymptomCreate):
+    db_user_symptom = models.UserSymptom(**user_symptom.model_dump())
     db.add(db_user_symptom)
     db.commit()
     db.refresh(db_user_symptom)
