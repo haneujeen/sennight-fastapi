@@ -33,7 +33,7 @@ async def create(
         db: Session = Depends(database.get_db)
 ):
     user_id = request.state.user_id
-    new_user_aid_product = user_aid_product_crud.create(db, user_id, user_aid_product)
+    new_user_aid_product = user_aid_product_crud.create(db, user_aid_product)
 
     return {
         "status": True,
