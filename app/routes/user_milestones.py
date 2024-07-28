@@ -41,10 +41,20 @@ async def create(
 
 
 @router.get("/user-milestones/{user_id}")
-async def read(user_id: int, db: Session = Depends(database.get_db)):
-    user_milestones = user_milestone_crud.read(db, user_id)
+async def get_milestones(user_id: int, db: Session = Depends(database.get_db)):
+    user_milestones = user_milestone_crud.get_milestones(db, user_id)
     return {
         "status": True,
         "detail": "",
         "data": user_milestones
+    }
+
+
+@router.get("/user-milestones/max-id/{user_id}")
+async def get_max_milestone_id(user_id: int, db: Session = Depends(database.get_db)):
+    max_milestone_id = user_milestone_crud.get_max_milestone_id(db, user_id)
+    return {
+        "status": True,
+        "detail": "",
+        "data": max_milestone_id
     }

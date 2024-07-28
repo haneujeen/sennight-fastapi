@@ -12,8 +12,8 @@ COPY . .
 
 EXPOSE 3100
 
-LABEL version="0.1.5" \
-      description="Fix extra argument user_id error" \
+LABEL version="0.2.0" \
+      description="Update user milestone API" \
       maintainer="한유진 <eujeenhan@gmail.com>"
 
 CMD ["gunicorn", "app.main:app"]
