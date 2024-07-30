@@ -12,8 +12,8 @@ COPY . .
 
 EXPOSE 3100
 
-LABEL version="0.2.0" \
-      description="Update user milestone API" \
+LABEL version="0.2.1" \
+      description="Fix attribute error" \
       maintainer="한유진 <eujeenhan@gmail.com>"
 
 CMD ["gunicorn", "app.main:app"]
