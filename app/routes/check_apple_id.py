@@ -24,5 +24,5 @@ async def apple_sign_in(request: AppleIDRequest, db: Session = Depends(database.
             "email": user_with_apple_id.email,
             "name": user_with_apple_id.name,
             "access_token": access_token
-        }
+        } if user_with_apple_id else None
     }
