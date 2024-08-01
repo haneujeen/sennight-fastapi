@@ -12,8 +12,8 @@ COPY . .
 
 EXPOSE 3100
 
-LABEL version="0.3.0" \
-      description="Add Sign in with Apple" \
+LABEL version="0.3.1" \
+      description="Update Sign in with Apple" \
       maintainer="한유진 <eujeenhan@gmail.com>"
 
 CMD ["gunicorn", "app.main:app"]
