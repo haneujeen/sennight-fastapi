@@ -67,12 +67,12 @@ async def update(
         smoking_log: smoking_log_schemas.SmokingLogUpdate,
         db: Session = Depends(database.get_db)
 ):
-    updated_quit_attempt = smoking_log_crud.update(db, smoking_log_id, smoking_log)
+    updated_smoking_log = smoking_log_crud.update(db, smoking_log_id, smoking_log)
 
     return {
         "status": True,
         "detail": "Smoking log updated successfully",
-        "data": updated_quit_attempt
+        "data": updated_smoking_log
     }
 
 
