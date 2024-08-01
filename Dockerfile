@@ -12,8 +12,8 @@ COPY . .
 
 EXPOSE 3100
 
-LABEL version="0.2.1" \
-      description="Fix attribute error" \
+LABEL version="0.2.2" \
+      description="Modify the server response format to be consistent" \
       maintainer="한유진 <eujeenhan@gmail.com>"
 
 CMD ["gunicorn", "app.main:app"]
