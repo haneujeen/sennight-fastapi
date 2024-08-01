@@ -4,7 +4,7 @@ from jose import jwt, JWTError
 from .database import engine, Base
 from .routes import users, smoking_habits, quit_attempts, smoking_logs, \
     health_benefits, triggers, motivations, milestones, aid_products, symptoms, activities, \
-    user_motivations, user_milestones, user_aid_products, user_symptoms, user_activities, milestone_posts
+    user_motivations, user_milestones, user_aid_products, user_symptoms, user_activities, milestone_posts, check_apple_id
 from .config import settings
 
 Base.metadata.create_all(bind=engine)
@@ -28,7 +28,7 @@ app.include_router(user_aid_products.router)
 app.include_router(user_symptoms.router)
 app.include_router(user_activities.router)
 app.include_router(milestone_posts.router)
-
+app.include_router(check_apple_id.router)
 
 @app.middleware("http")
 async def jwt_middleware(request: Request, call_next):
@@ -36,6 +36,9 @@ async def jwt_middleware(request: Request, call_next):
         return await call_next(request)
 
     if request.method == "POST" and request.url.path.startswith("/users"):
+        return await call_next(request)
+
+    if request.url.path.startswith("/check-apple-id"):
         return await call_next(request)
 
     authorization: str = request.headers.get("Authorization")

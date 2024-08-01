@@ -9,7 +9,7 @@ from ..schemas import smoking_habit_schemas
 def create(db: Session, smoking_habit: smoking_habit_schemas.SmokingHabitCreate):
     db_habit = db.query(models.SmokingHabit).filter(models.SmokingHabit.user_id == smoking_habit.user_id).first()
     if db_habit:
-        raise HTTPException(status_code=400, detail="Smoking habit already exists")
+        db.delete(db_habit)
 
     db_habit = models.SmokingHabit(
         user_id=smoking_habit.user_id,

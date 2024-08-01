@@ -11,6 +11,7 @@ class User(Base):
     name = Column(String(50), nullable=False)
     hashed_password = Column(String(255), nullable=False)
     photo_filename = Column(String(255))
+    apple_id = Column(String(50), unique=True)
 
     created_at = Column(DateTime, server_default=func.now())
     updated_at = Column(DateTime, server_default=func.now(), onupdate=func.now())

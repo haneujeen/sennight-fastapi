@@ -14,6 +14,7 @@ from .activity_schemas import UserActivity
 class UserBase(BaseModel):
     email: EmailStr
     name: str
+    apple_id: Optional[str] = None
 
 
 class UserCreate(UserBase):
@@ -35,6 +36,7 @@ class UserLogin(UserBase):
 class User(UserBase):
     id: int
     photo_filename: Optional[str] = None
+    apple_id: Optional[str] = None
     created_at: datetime
     updated_at: datetime
     deleted_at: Optional[datetime] = None
