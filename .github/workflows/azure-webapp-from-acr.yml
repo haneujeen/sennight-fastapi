@@ -5,7 +5,7 @@ env:
   ACR_NAME: sennight
   RESOURCE_GROUP: sennightResourceGroup
   IMAGE_NAME: sennight-fastapi
-  IMAGE_TAG: v0.3.2 # v.major.minor.patch
+  IMAGE_TAG: v0.3.3 # v.major.minor.patch
   PYTHON_VERSION: '3.12'              # set this to the Python version to use
 
 on:

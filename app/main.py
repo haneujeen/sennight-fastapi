@@ -38,7 +38,7 @@ async def jwt_middleware(request: Request, call_next):
     if request.method == "POST" and request.url.path.startswith("/users"):
         return await call_next(request)
 
-    if request.url.path.startswith("/check-apple-id"):
+    if request.url.path.startswith("/apple-sign-in"):
         return await call_next(request)
 
     authorization: str = request.headers.get("Authorization")
