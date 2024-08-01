@@ -12,8 +12,8 @@ COPY . .
 
 EXPOSE 3100
 
-LABEL version="0.3.1" \
-      description="Update Sign in with Apple" \
+LABEL version="0.3.2" \
+      description="Fix Duplicated Apple user identifier error" \
       maintainer="한유진 <eujeenhan@gmail.com>"
 
 CMD ["gunicorn", "app.main:app"]
