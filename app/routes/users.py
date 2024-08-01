@@ -28,6 +28,7 @@ async def register(user: user_schemas.UserCreate, db: Session = Depends(database
             "email": new_user.email,
             "name": new_user.name,
             "photo_filename": new_user.photo_filename,
+            "apple_id": new_user.apple_id,
             "created_at": new_user.created_at,
             "onboarding_token": onboarding_token
         }

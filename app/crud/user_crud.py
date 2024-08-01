@@ -10,14 +10,17 @@ def create(db: Session, user: user_schemas.UserCreate):
     db_user = db.query(models.User).filter(models.User.email == user.email).first()
     if db_user:
         raise HTTPException(status_code=400, detail="Email in use")
+    db_user_with_apple_id = db.query(models.User).filter(models.User.apple_id == user.apple_id).first()
+    if db_user_with_apple_id:
+        raise HTTPException(status_code=400, detail="Duplicated Apple user identifier")
 
     hashed_password = security.hash_password(user.password)
-    photo_filename = user.photo_filename if user.photo_filename else None
     db_user = models.User(
         email=user.email,
         name=user.name,
         hashed_password=hashed_password,
-        photo_filename=photo_filename
+        photo_filename=user.photo_filename,
+        apple_id=user.apple_id
     )
     db.add(db_user)
     db.commit()
@@ -43,7 +46,9 @@ def read(db: Session, user_id: int):
 
 def get_user_with_apple_id(db: Session, apple_id: str):
     db_user = db.query(models.User).filter(models.User.apple_id == apple_id).first()
-    return db_user is not None
+    return db_user
+
+### Apple sign in stuff
 
 
 def update(db: Session, user_id: int, user: user_schemas.UserUpdate):
