@@ -41,6 +41,11 @@ def read(db: Session, user_id: int):
     return db_user
 
 
+def get_user_with_apple_id(db: Session, apple_id: str):
+    db_user = db.query(models.User).filter(models.User.apple_id == apple_id).first()
+    return db_user is not None
+
+
 def update(db: Session, user_id: int, user: user_schemas.UserUpdate):
     db_user = db.query(models.User).filter(models.User.id == user_id).first()
     if not db_user:
