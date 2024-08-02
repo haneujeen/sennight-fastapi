@@ -12,8 +12,8 @@ COPY . .
 
 EXPOSE 3100
 
-LABEL version="0.3.4" \
-      description="Fix Internal Server Error when no matching Apple ID" \
+LABEL version="0.3.5" \
+      description="Update Update User API" \
       maintainer="한유진 <eujeenhan@gmail.com>"
 
 CMD ["gunicorn", "app.main:app"]

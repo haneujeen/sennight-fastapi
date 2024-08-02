@@ -95,7 +95,7 @@ async def read(user_id: int, db: Session = Depends(database.get_db)):
 
 @router.put("/{user_id}")
 async def update(user_id: int, user: user_schemas.UserUpdate, db: Session = Depends(database.get_db)):
-    updated_user = user_crud.update(db, user_id, user)
+    updated_user = user_crud.update_user(db, user_id, user)
     return {
         "status": True,
         "detail": "User updated successfully",
@@ -103,6 +103,7 @@ async def update(user_id: int, user: user_schemas.UserUpdate, db: Session = Depe
             "email": updated_user.email,
             "name": updated_user.name,
             "photo_filename": updated_user.photo_filename,
+            "apple_id": updated_user.apple_id,
             "updated_at": updated_user.updated_at
         }
     }
