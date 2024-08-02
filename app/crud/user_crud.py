@@ -52,7 +52,7 @@ def get_user_with_apple_id(db: Session, apple_id: str):
 ### Apple sign in stuff
 
 
-def update(db: Session, user_id: int, user: user_schemas.UserUpdate):
+def update_user(db: Session, user_id: int, user: user_schemas.UserUpdate):
     db_user = db.query(models.User).filter(models.User.id == user_id).first()
     if not db_user:
         raise HTTPException(status_code=404, detail="User not found")
@@ -63,6 +63,8 @@ def update(db: Session, user_id: int, user: user_schemas.UserUpdate):
         db_user.hashed_password = security.hash_password(user.password)
     if user.photo_filename:
         db_user.photo_filename = user.photo_filename
+    if user.apple_id:
+        db_user.apple_id = user.apple_id
     db.commit()
     db.refresh(db_user)
     return db_user
