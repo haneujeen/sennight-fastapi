@@ -1,15 +1,20 @@
 from sqlalchemy.orm import Session
+from sqlalchemy.exc import IntegrityError
 from fastapi import HTTPException
 from .. import models
 from ..schemas import aid_product_schemas
 
 
 def create(db: Session, user_aid_product: aid_product_schemas.UserAidProductCreate):
-    db_user_aid_product = models.UserAidProduct(**user_aid_product.model_dump())
-    db.add(db_user_aid_product)
-    db.commit()
-    db.refresh(db_user_aid_product)
-    return db_user_aid_product
+    try:
+        db_user_aid_product = models.UserAidProduct(**user_aid_product.model_dump())
+        db.add(db_user_aid_product)
+        db.commit()
+        db.refresh(db_user_aid_product)
+        return db_user_aid_product
+    except IntegrityError as e:
+        db.rollback()
+        raise HTTPException(status_code=400, detail="Integrity error occurred.") from e
 
 
 def read(db: Session, user_id: int):
