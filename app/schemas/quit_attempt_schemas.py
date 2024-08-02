@@ -4,14 +4,13 @@ from typing import Optional
 
 
 class QuitAttemptBase(BaseModel):
-    user_id: int
     start_date: datetime
     end_date: Optional[datetime] = None
     is_active: bool = True
 
 
 class QuitAttemptCreate(QuitAttemptBase):
-    pass
+    user_id: int
 
 
 class QuitAttemptUpdate(QuitAttemptBase):

@@ -12,8 +12,8 @@ COPY . .
 
 EXPOSE 3100
 
-LABEL version="0.3.5" \
-      description="Update Update User API" \
+LABEL version="0.3.6" \
+      description="Update quit_attempt_schemas.py" \
       maintainer="한유진 <eujeenhan@gmail.com>"
 
 CMD ["gunicorn", "app.main:app"]
