@@ -56,8 +56,5 @@ async def delete(user_aid_product_id: int, db: Session = Depends(database.get_db
     return {
         "status": True,
         "detail": "User's aid product deleted successfully",
-        "data": {
-            "user_id": user_aid_product.user_id,
-            "aid_product_id": user_aid_product.aid_product_id
-        }
+        "data": user_aid_product
     }
