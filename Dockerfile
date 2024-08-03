@@ -12,8 +12,8 @@ COPY . .
 
 EXPOSE 3100
 
-LABEL version="0.3.7" \
-      description="Handle sqlalchemy.exc.IntegrityError" \
+LABEL version="0.3.8" \
+      description="Update user_aid_products.py" \
       maintainer="한유진 <eujeenhan@gmail.com>"
 
 CMD ["gunicorn", "app.main:app"]
